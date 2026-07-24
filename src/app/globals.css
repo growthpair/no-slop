@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+/*
+  No Slop — dark-editorial brand.
+  One accent (signal lime), warm off-white ink on near-black paper.
+  Red is reserved for "slop"; lime marks "the fix". Nothing else gets colour.
+*/
+
+/* Dark is the primary brand. */
+:root {
+  --background: #0a0a09;
+  --surface: #111110;
+  --surface-2: #17171400;
+  --card: #121210;
+  --card-hover: #17171400;
+  --foreground: #ededea;
+  --muted: #8a8a80;
+  --muted-2: #62625a;
+  --border: #24241f;
+  --border-strong: #35352d;
+  --accent: #c6f24e; /* signal lime — fills only */
+  --accent-hover: #d4fa6a;
+  --accent-ink: #c6f24e; /* accent-coloured text (readable on dark) */
+  --accent-contrast: #0a0a09; /* text that sits on an accent fill */
+  --slop: #ff6a4d; /* the "bad" marker — never a brand colour */
+  --paper: #0a0a09;
+}
+
+/* Light mode: warm paper, dark ink. Accent stays lime on fills; accent text
+   darkens to stay readable on white (WCAG AA). */
+:root.light {
+  --background: #f6f5ef;
+  --surface: #ffffff;
+  --surface-2: #efeee6;
+  --card: #ffffff;
+  --card-hover: #f1f0e8;
+  --foreground: #14140f;
+  --muted: #63635a;
+  --muted-2: #8c8c82;
+  --border: #e3e2d8;
+  --border-strong: #d2d1c5;
+  --accent: #c6f24e;
+  --accent-hover: #b7e63a;
+  --accent-ink: #46600a; /* dark olive-lime, readable on paper */
+  --accent-contrast: #14140f;
+  --slop: #d6402a;
+  --paper: #f6f5ef;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-slop: var(--slop);
+
+  --font-sans: var(--font-geist-sans), "Inter", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-instrument-serif), Georgia, serif;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Keyboard focus: a clear lime ring, never removed. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Editorial mono eyebrow label. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Display serif for the big statements. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+}
+
+/* Fine hairline grid, used sparingly behind the hero. */
+.grid-lines {
+  background-image: linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-2);
+}
+
+/* Marquee for the social-proof strip. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 42s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Caret blink for the "editing" motif. */
+@keyframes caret {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: caret 1.05s step-end infinite;
+}
+
+/* Subtle rise-in on scroll (progressive; no layout shift). */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+/* Scroll reveal: elements start hidden, .is-visible (set by IntersectionObserver)
+   fades + rises them in once. Reduced-motion users see them immediately. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
