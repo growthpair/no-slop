@@ -4,7 +4,7 @@ import { BeforeAfterSlider } from "./before-after-slider";
 /** Fake browser chrome bar. */
 function Chrome() {
   return (
-    <div className="flex items-center gap-1.5 border-b border-black/10 bg-black/[0.03] px-3 py-2.5 dark:border-white/10 dark:bg-white/[0.03]">
+    <div className="flex items-center gap-1.5 border-b border-black/10 bg-black/[0.03] px-3 py-2.5">
       <span className="h-2.5 w-2.5 rounded-full bg-current opacity-20" />
       <span className="h-2.5 w-2.5 rounded-full bg-current opacity-20" />
       <span className="h-2.5 w-2.5 rounded-full bg-current opacity-20" />

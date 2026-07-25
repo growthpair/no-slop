@@ -9,7 +9,6 @@ import { HowItWorks } from "@/components/how-it-works";
 import { FounderNote } from "@/components/founder-note";
 import { SkillSection } from "@/components/skill-section";
 import { UnlockButton } from "@/components/unlock-button";
-import { Reveal } from "@/components/reveal";
 import { SKILLS_SORTED } from "@/lib/skills";
 
 export default function Home() {
@@ -87,7 +86,7 @@ export default function Home() {
         {/* ------------------------------------------------------ Slop checker */}
         <section id="slop-check" className="border-t border-border px-5 py-20 sm:px-8 sm:py-24">
           <div className="mx-auto max-w-5xl">
-            <Reveal className="mb-10 max-w-2xl">
+            <div className="mb-10 max-w-2xl">
               <p className="eyebrow mb-4 text-accent-ink">Try it on your own work</p>
               <h2 className="display text-[clamp(1.9rem,4.5vw,3rem)] text-foreground">
                 Grade your copy and design.
@@ -97,7 +96,7 @@ export default function Home() {
                 tells; audit a design against the checklist. Nothing gets sent
                 anywhere. The skills do this to everything you make, automatically.
               </p>
-            </Reveal>
+            </div>
             <Grade />
           </div>
         </section>
@@ -105,7 +104,7 @@ export default function Home() {
         {/* ------------------------------------------------------------ The tell */}
         <section id="the-tell" className="border-t border-border px-5 py-20 sm:px-8 sm:py-24">
           <div className="mx-auto max-w-5xl">
-            <Reveal className="mb-12 max-w-2xl">
+            <div className="mb-12 max-w-2xl">
               <p className="eyebrow mb-4 text-accent-ink">The tell</p>
               <h2 className="display text-[clamp(1.9rem,4.5vw,3rem)] text-foreground">
                 Slop is a signal. It says: nobody looked at this.
@@ -117,9 +116,9 @@ export default function Home() {
                 isn&apos;t writing every prompt by hand. It&apos;s giving Claude a
                 standing rule so the defaults never make it out.
               </p>
-            </Reveal>
+            </div>
 
-            <Reveal className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
+            <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
               {[
                 {
                   k: "In the words",
@@ -141,7 +140,7 @@ export default function Home() {
                   <p className="text-[14px] leading-relaxed text-muted">{c.v}</p>
                 </div>
               ))}
-            </Reveal>
+            </div>
           </div>
         </section>
 
@@ -168,7 +167,7 @@ export default function Home() {
 
         {/* ----------------------------------------------------------- Final CTA */}
         <section className="border-t border-border px-5 py-24 sm:px-8 sm:py-32">
-          <Reveal className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-3xl text-center">
             <p className="eyebrow mb-5 text-accent-ink">Free with a Google account</p>
             <h2 className="display text-[clamp(2.2rem,5.5vw,3.8rem)] text-foreground">
               Ship work that doesn&apos;t look generated.
@@ -180,7 +179,7 @@ export default function Home() {
             <div className="mt-9 flex justify-center">
               <UnlockButton callbackPath="/#skills" label="Get the skills free" />
             </div>
-          </Reveal>
+          </div>
         </section>
       </main>
       <Footer />

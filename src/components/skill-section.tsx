@@ -3,7 +3,6 @@ import { ArrowUpRight, Check } from "lucide-react";
 import type { Skill } from "@/lib/skills";
 import { SkillShowcase, hasShowcase } from "./skill-showcase";
 import { UnlockButton } from "./unlock-button";
-import { Reveal } from "./reveal";
 
 /**
  * One skill, rendered as a full landing section. Data-driven: adding a third
@@ -15,11 +14,13 @@ export function SkillSection({ skill, index }: { skill: Skill; index: number }) 
   return (
     <section
       id={`skill-${skill.slug}`}
-      className="border-t border-border px-5 py-20 sm:px-8 sm:py-28"
+      className={`border-border px-5 sm:px-8 ${
+        index === 0 ? "pt-8 pb-20 sm:pb-28" : "border-t py-20 sm:py-28"
+      }`}
     >
       <div className="mx-auto max-w-5xl">
         {/* Header row */}
-        <Reveal className="mb-10 grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+        <div className="mb-10 grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
           <div>
             <div className="mb-4 flex items-center gap-3">
               <span className="font-mono text-[11px] uppercase tracking-widest text-accent-ink">
@@ -41,7 +42,7 @@ export function SkillSection({ skill, index }: { skill: Skill; index: number }) 
             Full skill page
             <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
-        </Reveal>
+        </div>
 
         {/* Summary + what you get */}
         <div className="mb-12 grid gap-10 md:grid-cols-[1.1fr_0.9fr]">
