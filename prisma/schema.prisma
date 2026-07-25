@@ -1,11 +1,13 @@
-// Local dev uses SQLite. For Vercel, change provider to "postgresql" and set
-// DATABASE_URL to your Postgres/Neon URL. The models below are Postgres-safe.
+// PostgreSQL (Railway in prod). Tables are created by `prisma db push` in the
+// start script, so a fresh database provisions itself on first deploy.
+// For local dev, point DATABASE_URL at a Postgres instance (e.g. Railway's
+// DATABASE_PUBLIC_URL) rather than a sqlite file.
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 

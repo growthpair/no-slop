@@ -6,7 +6,7 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "build": "prisma generate && next build",
-    "start": "next start",
+    "start": "prisma db push --skip-generate && next start",
     "lint": "eslint"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "next": "15.1.6",
     "next-auth": "^4.24.13",
     "next-themes": "^0.4.6",
+    "prisma": "^5.22.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -26,7 +27,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
-    "prisma": "^5.22.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

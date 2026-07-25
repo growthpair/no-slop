@@ -8,14 +8,29 @@ Next.js 15 (App Router) · Tailwind v4 · TypeScript · NextAuth (Google) · Pri
 
 ## Run locally
 
+Needs a Postgres `DATABASE_URL` (e.g. Railway's `DATABASE_PUBLIC_URL`) in `.env`.
+
 ```bash
 npm install
-npx prisma db push      # creates the local SQLite dev.db
+npx prisma db push      # creates the tables
 npm run dev
 ```
 
 There's a **dev login** button on `/login` (dev only) so you can see the unlocked
 state without setting up Google OAuth.
+
+## Deploy (Railway)
+
+The repo is Railway-ready: Postgres provider, and `prisma db push` runs in the
+`start` script so tables auto-create on first deploy.
+
+1. New Railway project from this repo → add a **PostgreSQL** database.
+2. On the web service, set variables: `DATABASE_URL=${{Postgres.DATABASE_URL}}`,
+   `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, `NEXT_PUBLIC_SITE_URL`, `GOOGLE_CLIENT_ID`,
+   `GOOGLE_CLIENT_SECRET` (+ optional ESP keys).
+3. Add the prod redirect URI in Google Cloud:
+   `https://<domain>/api/auth/callback/google`.
+4. Point DNS at Railway's custom-domain target.
 
 ## How the gate works
 
