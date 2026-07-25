@@ -218,7 +218,7 @@ export const SKILLS: Skill[] = [
   },
   {
     slug: "no-slop",
-    name: "No Slop",
+    name: "No Slop Copy",
     tagline:
       "Scrub the AI tells out of any draft. One paste sets up a permanent anti-slop editor inside Claude that keeps your writing sounding like you.",
     category: "Writing",

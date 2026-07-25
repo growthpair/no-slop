@@ -32,7 +32,7 @@ async function addToBeehiiv(email: string) {
         email,
         reactivate_existing: true,
         send_welcome_email: true,
-        utm_source: "noslop",
+        utm_source: "deleteslop",
       }),
     });
     if (!res.ok) console.error("[beehiiv] failed:", res.status, await res.text());

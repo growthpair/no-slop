@@ -1,8 +1,8 @@
-# No Slop
+# DeleteSlop
 
-Lead-magnet site for the **No Slop** Claude skills — free skills for marketers in
-exchange for a newsletter signup. Read the pitch and a preview free; sign in with
-Google to copy the full skill and join the newsletter.
+Lead-magnet site (by GrowthPair) for the No Slop anti-slop Claude skills — free
+skills for marketers in exchange for a newsletter signup. Read the pitch and a
+preview free; sign in with Google to copy the full skill and join the newsletter.
 
 Next.js 15 (App Router) · Tailwind v4 · TypeScript · NextAuth (Google) · Prisma.
 

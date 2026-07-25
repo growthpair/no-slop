@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "No Slop — kill the AI tell in your writing and design";
+export const alt = "DeleteSlop — kill the AI tell in your writing and design";
 
 /** Social share card. Same brand: near-black paper, one lime mark, struck slop. */
 export default function OG() {
@@ -22,12 +22,12 @@ export default function OG() {
       >
         {/* Wordmark */}
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <div style={{ display: "flex", alignItems: "center", position: "relative", color: "#8a8a80", fontSize: 30, fontWeight: 700, fontFamily: "monospace" }}>
-            No
-            <div style={{ position: "absolute", top: "50%", left: 0, width: "100%", height: 3, background: "#ff6a4d" }} />
-          </div>
           <div style={{ background: "#c6f24e", color: "#0a0a09", fontSize: 30, fontWeight: 800, padding: "0 8px", fontFamily: "monospace" }}>
+            Delete
+          </div>
+          <div style={{ display: "flex", alignItems: "center", position: "relative", color: "#8a8a80", fontSize: 30, fontWeight: 700, fontFamily: "monospace" }}>
             Slop
+            <div style={{ position: "absolute", top: "50%", left: 0, width: "100%", height: 3, background: "#ff6a4d" }} />
           </div>
         </div>
 
@@ -54,7 +54,7 @@ export default function OG() {
             FREE CLAUDE SKILLS · FOR MARKETERS
           </div>
           <div style={{ color: "#c6f24e", fontSize: 24, fontFamily: "monospace", letterSpacing: 2 }}>
-            noslop.dev
+            deleteslop.com
           </div>
         </div>
       </div>

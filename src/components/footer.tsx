@@ -16,7 +16,7 @@ export function Footer() {
           <div className="flex flex-col gap-2.5">
             <p className="eyebrow text-muted-2">Skills</p>
             <Link href="/skills/no-slop" className="text-[13px] text-muted transition-colors hover:text-foreground">
-              No Slop (copy)
+              No Slop Copy
             </Link>
             <Link href="/skills/no-slop-design" className="text-[13px] text-muted transition-colors hover:text-foreground">
               No Slop Design
@@ -45,7 +45,7 @@ export function Footer() {
       </div>
       <div className="mx-auto mt-12 max-w-6xl border-t border-border pt-6">
         <p className="font-mono text-[11px] uppercase tracking-widest text-muted-2">
-          © {new Date().getFullYear()} No Slop · A Claude Marketers project
+          © {new Date().getFullYear()} DeleteSlop · A GrowthPair project
         </p>
       </div>
     </footer>

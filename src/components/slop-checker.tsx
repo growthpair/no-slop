@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { ArrowRight, Sparkles, Twitter, RotateCcw } from "lucide-react";
 import { detectSlop, SLOP_SAMPLE, type SlopHit } from "@/lib/slop-detector";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://noslop.dev";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://deleteslop.com";
 
 /** Render the pasted text with each detected tell wrapped in a struck mark. */
 function Highlighted({ text, hits }: { text: string; hits: SlopHit[] }) {
@@ -185,14 +185,14 @@ export function SlopChecker() {
             This is the skill running once. Get it to run on everything.
           </p>
           <p className="mt-1 mb-3.5 text-[12.5px] leading-relaxed text-muted">
-            Install the No Slop skill and Claude scrubs this out of every draft, before you ever paste
+            Install No Slop Copy and Claude scrubs this out of every draft, before you ever paste
             it here. Free with a Google account.
           </p>
           <a
             href="/login?callbackUrl=%2Fskills%2Fno-slop&reason=checker"
             className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2.5 font-mono text-[11px] font-semibold uppercase tracking-widest text-accent-contrast transition-colors hover:bg-accent-hover"
           >
-            Get the No Slop skill <ArrowRight size={13} />
+            Get No Slop Copy <ArrowRight size={13} />
           </a>
         </div>
       </div>

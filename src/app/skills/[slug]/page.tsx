@@ -22,9 +22,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const skill = getSkill(slug);
-  if (!skill) return { title: "Skill not found · No Slop" };
+  if (!skill) return { title: "Skill not found · DeleteSlop" };
   return {
-    title: `${skill.name} · No Slop`,
+    title: `${skill.name} · DeleteSlop`,
     description: skill.tagline,
   };
 }

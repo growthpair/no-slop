@@ -19,11 +19,11 @@ if (process.env.NODE_ENV === "development") {
       name: "Dev Login",
       credentials: { email: { label: "Email", type: "email" } },
       async authorize(credentials) {
-        if (credentials?.email !== "dev@noslop.dev") return null;
-        let user = await prisma.user.findUnique({ where: { email: "dev@noslop.dev" } });
+        if (credentials?.email !== "dev@deleteslop.com") return null;
+        let user = await prisma.user.findUnique({ where: { email: "dev@deleteslop.com" } });
         if (!user) {
           user = await prisma.user.create({
-            data: { email: "dev@noslop.dev", name: "Dev User" },
+            data: { email: "dev@deleteslop.com", name: "Dev User" },
           });
         }
         return { id: user.id, email: user.email, name: user.name, image: user.image };

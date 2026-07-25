@@ -11,9 +11,9 @@ import { UnlockButton } from "@/components/unlock-button";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "The library · No Slop",
+  title: "The library · DeleteSlop",
   description:
-    "Every No Slop skill in one place. Copy-paste anti-slop skills for Claude — free with a Google account.",
+    "Every DeleteSlop skill in one place. Copy-paste anti-slop skills for Claude — free with a Google account.",
 };
 
 export default async function SkillsIndex() {

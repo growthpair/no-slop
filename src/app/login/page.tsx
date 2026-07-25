@@ -43,7 +43,7 @@ function InAppWarning() {
             Instagram). Open this page in Safari or Chrome to continue.
           </p>
           <p className="break-all rounded-md border border-border bg-surface p-3 font-mono text-[11px] text-muted">
-            {url || "noslop.dev/login"}
+            {url || "deleteslop.com/login"}
           </p>
         </div>
       </div>
@@ -75,7 +75,7 @@ function LoginContent() {
 
           <div className="mb-6 space-y-2.5">
             {[
-              "Copy-paste No Slop + No Slop Design",
+              "Copy-paste No Slop Copy + No Slop Design",
               "Every new skill, free, the day it drops",
               "The newsletter, no spam",
             ].map((item) => (
@@ -102,7 +102,7 @@ function LoginContent() {
                 <span className="h-px flex-1 bg-border" />
               </div>
               <button
-                onClick={() => signIn("credentials", { email: "dev@noslop.dev", callbackUrl })}
+                onClick={() => signIn("credentials", { email: "dev@deleteslop.com", callbackUrl })}
                 className="flex w-full cursor-pointer items-center justify-center rounded-md border border-border py-3 font-mono text-sm text-foreground transition-colors hover:border-border-strong"
               >
                 Dev login

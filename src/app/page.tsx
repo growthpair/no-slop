@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { HeroEditor } from "@/components/hero-editor";
-import { SlopChecker } from "@/components/slop-checker";
+import { Grade } from "@/components/grade";
 import { FounderBar } from "@/components/founder-bar";
 import { HowItWorks } from "@/components/how-it-works";
 import { FounderNote } from "@/components/founder-note";
@@ -31,7 +31,10 @@ export default function Home() {
                   </span>
                 </div>
 
-                <h1 className="display text-[clamp(2.9rem,7vw,5.2rem)] text-foreground">
+                <h1
+                  className="display text-[clamp(2.9rem,7vw,5.2rem)] text-foreground"
+                  style={{ lineHeight: 1.12 }}
+                >
                   AI writing and design
                   <br />
                   have a{" "}
@@ -58,7 +61,7 @@ export default function Home() {
                     href="#slop-check"
                     className="group inline-flex items-center gap-1.5 font-mono text-[12px] uppercase tracking-widest text-muted transition-colors hover:text-foreground"
                   >
-                    Grade your copy
+                    Grade your work
                     <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </div>
@@ -85,17 +88,17 @@ export default function Home() {
         <section id="slop-check" className="border-t border-border px-5 py-20 sm:px-8 sm:py-24">
           <div className="mx-auto max-w-5xl">
             <Reveal className="mb-10 max-w-2xl">
-              <p className="eyebrow mb-4 text-accent-ink">Try it on your own words</p>
+              <p className="eyebrow mb-4 text-accent-ink">Try it on your own work</p>
               <h2 className="display text-[clamp(1.9rem,4.5vw,3rem)] text-foreground">
-                Paste your copy. See the slop.
+                Grade your copy and design.
               </h2>
               <p className="mt-5 text-[15px] leading-relaxed text-muted sm:text-base">
-                This is the No Slop skill running once, in your browser. Nothing gets
-                sent anywhere. It flags the tells and scores them. The skill does this
-                to everything you write, automatically.
+                The skills running once, right here. Paste copy and it scans for the
+                tells; audit a design against the checklist. Nothing gets sent
+                anywhere. The skills do this to everything you make, automatically.
               </p>
             </Reveal>
-            <SlopChecker />
+            <Grade />
           </div>
         </section>
 

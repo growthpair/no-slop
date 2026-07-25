@@ -25,7 +25,7 @@ export default function NotFound() {
             href="/"
             className="mt-8 inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 font-mono text-[12px] font-semibold uppercase tracking-widest text-accent-contrast transition-colors hover:bg-accent-hover"
           >
-            <ArrowLeft size={14} /> Back to No Slop
+            <ArrowLeft size={14} /> Back to DeleteSlop
           </Link>
         </div>
       </main>
