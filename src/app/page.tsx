@@ -3,8 +3,11 @@ import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { HeroEditor } from "@/components/hero-editor";
+import { SlopChecker } from "@/components/slop-checker";
+import { FounderBar } from "@/components/founder-bar";
+import { HowItWorks } from "@/components/how-it-works";
+import { FounderNote } from "@/components/founder-note";
 import { SkillSection } from "@/components/skill-section";
-import { ProofMarquee } from "@/components/proof-marquee";
 import { UnlockButton } from "@/components/unlock-button";
 import { Reveal } from "@/components/reveal";
 import { SKILLS_SORTED } from "@/lib/skills";
@@ -52,10 +55,10 @@ export default function Home() {
                 <div className="mt-9 flex flex-wrap items-center gap-5">
                   <UnlockButton callbackPath="/#skills" label="Get the skills free" />
                   <Link
-                    href="#the-tell"
+                    href="#slop-check"
                     className="group inline-flex items-center gap-1.5 font-mono text-[12px] uppercase tracking-widest text-muted transition-colors hover:text-foreground"
                   >
-                    See the tell
+                    Grade your copy
                     <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </div>
@@ -70,6 +73,29 @@ export default function Home() {
                 <HeroEditor />
               </div>
             </div>
+
+            {/* Founder credibility */}
+            <div className="mt-14">
+              <FounderBar />
+            </div>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------ Slop checker */}
+        <section id="slop-check" className="border-t border-border px-5 py-20 sm:px-8 sm:py-24">
+          <div className="mx-auto max-w-5xl">
+            <Reveal className="mb-10 max-w-2xl">
+              <p className="eyebrow mb-4 text-accent-ink">Try it on your own words</p>
+              <h2 className="display text-[clamp(1.9rem,4.5vw,3rem)] text-foreground">
+                Paste your copy. See the slop.
+              </h2>
+              <p className="mt-5 text-[15px] leading-relaxed text-muted sm:text-base">
+                This is the No Slop skill running once, in your browser. Nothing gets
+                sent anywhere. It flags the tells and scores them. The skill does this
+                to everything you write, automatically.
+              </p>
+            </Reveal>
+            <SlopChecker />
           </div>
         </section>
 
@@ -116,6 +142,9 @@ export default function Home() {
           </div>
         </section>
 
+        {/* --------------------------------------------------------- How it works */}
+        <HowItWorks />
+
         {/* -------------------------------------------------------------- Skills */}
         <div id="skills">
           <div className="border-t border-border px-5 pt-16 sm:px-8">
@@ -131,8 +160,8 @@ export default function Home() {
           ))}
         </div>
 
-        {/* --------------------------------------------------------- Social proof */}
-        <ProofMarquee />
+        {/* --------------------------------------------------------- Founder note */}
+        <FounderNote />
 
         {/* ----------------------------------------------------------- Final CTA */}
         <section className="border-t border-border px-5 py-24 sm:px-8 sm:py-32">
