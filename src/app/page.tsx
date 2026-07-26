@@ -3,6 +3,8 @@ import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { MarkedManuscript } from "@/components/marked-manuscript";
+import { SlopGraveyard } from "@/components/slop-graveyard";
+import { HandStrike } from "@/components/marks";
 import { Grade } from "@/components/grade";
 import { FounderBar } from "@/components/founder-bar";
 import { HowItWorks } from "@/components/how-it-works";
@@ -37,11 +39,7 @@ export default function Home() {
                   AI writing and design
                   <br />
                   have a{" "}
-                  <span className="relative whitespace-nowrap text-muted">
-                    tell
-                    <span className="absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 bg-slop" />
-                  </span>
-                  .
+                  <HandStrike className="whitespace-nowrap text-muted">tell</HandStrike>.
                   <br />
                   These skills{" "}
                   <span className="bg-accent px-2 text-accent-contrast">kill it</span>.
@@ -118,7 +116,15 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
+            {/* Slop graveyard — the whole vocabulary, struck out by hand */}
+            <div className="mb-5 -rotate-1">
+              <span className="font-hand text-[22px] leading-none text-slop">
+                the whole tired vocabulary&hellip;
+              </span>
+            </div>
+            <SlopGraveyard />
+
+            <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
               {[
                 {
                   k: "In the words",

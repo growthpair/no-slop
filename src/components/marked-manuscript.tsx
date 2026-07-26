@@ -1,5 +1,6 @@
 import { Check } from "lucide-react";
 import type { ReactNode } from "react";
+import { HandStrike } from "./marks";
 
 /**
  * Bespoke "editor's markup" — a slop paragraph hand-edited in red pen. The
@@ -9,29 +10,6 @@ import type { ReactNode } from "react";
  * moment: editing IS the brand.
  */
 
-/** A slightly wavy red pen stroke drawn through the word. */
-function HandStrike({ children }: { children: ReactNode }) {
-  return (
-    <span className="relative inline-block text-muted">
-      {children}
-      <svg
-        aria-hidden
-        viewBox="0 0 120 14"
-        preserveAspectRatio="none"
-        className="pointer-events-none absolute left-[-3px] top-1/2 h-[0.62em] w-[calc(100%+6px)] -translate-y-1/2 overflow-visible"
-      >
-        <path
-          d="M1,8 C22,3 44,11 66,6 S104,4 119,8"
-          fill="none"
-          stroke="var(--slop)"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-        />
-      </svg>
-    </span>
-  );
-}
-
 /** Struck word with the fix written in above a caret, editor-style. */
 function Fix({ to, children }: { to: string; children: ReactNode }) {
   return (
@@ -40,7 +18,7 @@ function Fix({ to, children }: { to: string; children: ReactNode }) {
         {to}
         <span className="ml-0.5 text-[1.1em]">‸</span>
       </span>
-      <HandStrike>{children}</HandStrike>
+      <HandStrike className="text-muted">{children}</HandStrike>
     </span>
   );
 }
@@ -60,10 +38,11 @@ export function MarkedManuscript() {
       <div className="relative z-10 px-6 py-9 sm:px-8">
         <p className="text-[17px] leading-[2.35] text-foreground sm:text-[18px]">
           <Fix to="Here&rsquo;s how">In today&rsquo;s fast-paced world,</Fix> we{" "}
-          <Fix to="use">leverage</Fix> <HandStrike>cutting-edge</HandStrike> AI to{" "}
+          <Fix to="use">leverage</Fix>{" "}
+          <HandStrike className="text-muted">cutting-edge</HandStrike> AI to{" "}
           <Fix to="help">seamlessly empower</Fix> teams and{" "}
           <Fix to="grow">supercharge</Fix> growth.{" "}
-          <HandStrike>It&rsquo;s a game-changer.</HandStrike>
+          <HandStrike className="text-muted">It&rsquo;s a game-changer.</HandStrike>
         </p>
 
         {/* Handwritten margin note */}
