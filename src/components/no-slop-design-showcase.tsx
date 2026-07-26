@@ -83,9 +83,16 @@ export function NoSlopDesignShowcase({
 }) {
   return (
     <>
-      <BeforeAfterSlider before={<SlopMock />} after={<FixedMock />} />
+      <BeforeAfterSlider
+        before={<SlopMock />}
+        after={<FixedMock />}
+        beforeLabel="Slop"
+        beforeSub="what AI hands you"
+        afterLabel="No slop"
+        afterSub="what the skill returns"
+      />
       <p className="mt-3 text-center font-mono text-[11px] uppercase tracking-widest text-muted-2">
-        Drag to compare · same content, one looks generated
+        ← Drag the handle to compare · same content, one looks generated →
       </p>
 
       {/* Tells grid */}

@@ -14,15 +14,19 @@ export function BeforeAfterSlider({
   after,
   beforeLabel = "Slop",
   afterLabel = "No slop",
+  beforeSub,
+  afterSub,
   heightClass = "h-[360px] sm:h-[420px]",
 }: {
   before: ReactNode;
   after: ReactNode;
   beforeLabel?: string;
   afterLabel?: string;
+  beforeSub?: string;
+  afterSub?: string;
   heightClass?: string;
 }) {
-  const [pos, setPos] = useState(52);
+  const [pos, setPos] = useState(50);
   const ref = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
 
@@ -67,13 +71,27 @@ export function BeforeAfterSlider({
         {before}
       </div>
 
-      {/* Corner labels */}
-      <span className="pointer-events-none absolute left-3 top-3 z-10 inline-flex items-center rounded-full border border-slop/30 bg-slop/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-slop backdrop-blur-sm">
-        {beforeLabel}
-      </span>
-      <span className="pointer-events-none absolute right-3 top-3 z-10 inline-flex items-center rounded-full border border-accent/40 bg-accent/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-accent-ink backdrop-blur-sm">
-        {afterLabel}
-      </span>
+      {/* Corner labels — solid + colour-coded so which-is-which is instant */}
+      <div className="pointer-events-none absolute left-3 top-3 z-20 max-w-[45%]">
+        <span className="inline-flex items-center rounded-md bg-slop px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-widest text-white shadow">
+          {beforeLabel}
+        </span>
+        {beforeSub && (
+          <p className="mt-1.5 font-mono text-[10px] font-medium uppercase leading-tight tracking-wide text-white/90 [text-shadow:0_1px_2px_rgba(0,0,0,0.4)]">
+            {beforeSub}
+          </p>
+        )}
+      </div>
+      <div className="pointer-events-none absolute right-3 top-3 z-20 max-w-[45%] text-right">
+        <span className="inline-flex items-center rounded-md bg-accent px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-widest text-accent-contrast shadow">
+          {afterLabel}
+        </span>
+        {afterSub && (
+          <p className="mt-1.5 font-mono text-[10px] font-medium uppercase leading-tight tracking-wide text-foreground/70">
+            {afterSub}
+          </p>
+        )}
+      </div>
 
       {/* Divider + handle */}
       <div className="pointer-events-none absolute inset-y-0 z-10" style={{ left: `${pos}%` }}>

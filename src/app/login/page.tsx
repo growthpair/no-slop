@@ -77,7 +77,7 @@ function LoginContent() {
             {[
               "Copy-paste No Slop Copy + No Slop Design",
               "Every new skill, free, the day it drops",
-              "The newsletter, no spam",
+              "Claude Marketers + The AI Marketer, no spam",
             ].map((item) => (
               <div key={item} className="flex items-center gap-2">
                 <Check size={13} className="shrink-0 text-accent-ink" strokeWidth={3} />
@@ -88,9 +88,11 @@ function LoginContent() {
 
           <button
             onClick={() => signIn("google", { callbackUrl })}
-            className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md bg-white py-3 text-sm font-medium text-black transition-colors hover:bg-gray-100"
+            className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-lg bg-accent py-4 text-[15px] font-semibold text-accent-contrast shadow-md transition-colors hover:bg-accent-hover"
           >
-            <GoogleMark />
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white">
+              <GoogleMark />
+            </span>
             Continue with Google
           </button>
 
@@ -111,11 +113,16 @@ function LoginContent() {
           )}
 
           <p className="mt-6 text-center font-mono text-[10px] leading-relaxed text-muted-2">
-            Signing in subscribes you to{" "}
+            Signing in also subscribes you to{" "}
             <a href="https://claudemarketers.substack.com" target="_blank" rel="noopener noreferrer" className="text-accent-ink hover:underline">
-              the newsletter
-            </a>
-            . Unsubscribe anytime.
+              Claude Marketers
+            </a>{" "}
+            and{" "}
+            <a href="https://jon4growth.substack.com" target="_blank" rel="noopener noreferrer" className="text-accent-ink hover:underline">
+              The AI Marketer
+            </a>{" "}
+            on Substack. No spam, ever. Just actionable AI and marketing insights
+            weekly. Unsubscribe anytime.
           </p>
         </div>
       </div>
