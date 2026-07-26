@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "DeleteSlop — kill the AI tell in your writing and design";
+export const alt = "DeleteSlop — delete the AI tell in your writing and design";
 
 /** Social share card. Same brand: near-black paper, one lime mark, struck slop. */
 export default function OG() {
@@ -33,7 +33,7 @@ export default function OG() {
 
         {/* Headline */}
         <div style={{ display: "flex", flexDirection: "column", color: "#ededea", fontSize: 76, fontWeight: 800, lineHeight: 1.02, letterSpacing: -2 }}>
-          <div style={{ display: "flex" }}>AI writing and design</div>
+          <div style={{ display: "flex" }}>AI writing &amp; design</div>
           <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
             have a{" "}
             <span style={{ display: "flex", alignItems: "center", position: "relative", color: "#8a8a80", marginLeft: 20 }}>
@@ -44,7 +44,7 @@ export default function OG() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
             These skills{" "}
-            <span style={{ background: "#c6f24e", color: "#0a0a09", padding: "0 14px", marginLeft: 18 }}>kill it</span>.
+            <span style={{ background: "#c6f24e", color: "#0a0a09", padding: "0 14px", marginLeft: 18 }}>delete it</span>.
           </div>
         </div>
 

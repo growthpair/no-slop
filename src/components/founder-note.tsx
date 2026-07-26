@@ -13,8 +13,8 @@ export function FounderNote() {
           I run most of my marketing through Claude now. Every marketer I know does
           too. The problem showed up fast: the writing has a tell, the design has a
           tell, and buyers feel both in about half a second. It reads as low effort
-          even when the work is good. So I wrote down the exact rules I use to kill
-          it, turned them into skills, and put them here free.
+          even when the work is good. So I wrote down the exact rules I use to
+          delete it, turned them into skills, and put them here free.
         </blockquote>
         <div className="mt-8 flex items-center gap-3">
           <span className="h-10 w-px bg-accent" />

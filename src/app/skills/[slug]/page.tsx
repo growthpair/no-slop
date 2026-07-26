@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { ArrowLeft, Check, Lock } from "lucide-react";
 import { authOptions } from "@/lib/auth";
 import { getSkill } from "@/lib/skills";
+import { currentVersion, lastUpdatedISO, getReleases, formatReleaseDate } from "@/lib/changelog";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { SkillContent } from "@/components/skill-content";
@@ -42,6 +43,10 @@ export default async function SkillPage({
   // authenticated users, so it never ships in logged-out HTML.
   const session = await getServerSession(authOptions);
 
+  const version = currentVersion(skill.slug);
+  const updated = lastUpdatedISO(skill.slug);
+  const releases = getReleases(skill.slug);
+
   return (
     <>
       <Navbar />
@@ -55,7 +60,10 @@ export default async function SkillPage({
           </Link>
 
           <p className="mb-4 font-mono text-[11px] uppercase tracking-widest text-accent-ink">
-            {skill.category} · {skill.tools.join(" · ")}
+            {skill.category} · {skill.tools.join(" · ")} · v{version}
+            {updated && (
+              <span className="text-muted-2"> · updated {formatReleaseDate(updated)}</span>
+            )}
           </p>
           <h1 className="display text-[clamp(2.4rem,6vw,4rem)] text-foreground">
             {skill.name}
@@ -119,6 +127,63 @@ export default async function SkillPage({
               </div>
             </div>
           )}
+        </div>
+
+        {/* What's new + how to update an already-installed skill */}
+        <div className="mx-auto mt-16 max-w-3xl">
+          <div className="mb-6 flex items-center gap-3">
+            <h2 className="font-mono text-[11px] uppercase tracking-widest text-muted">
+              What&apos;s new
+            </h2>
+            <span className="h-px flex-1 bg-border" />
+            <Link
+              href="/changelog"
+              className="font-mono text-[11px] uppercase tracking-widest text-accent-ink hover:underline"
+            >
+              Full changelog
+            </Link>
+          </div>
+
+          <div className="mb-8 rounded-xl border border-accent/25 bg-accent/[0.06] p-5">
+            <p className="text-[14px] font-semibold text-foreground">
+              Already installed an older version?
+            </p>
+            <p className="mt-1.5 text-[13px] leading-relaxed text-muted">
+              You don&apos;t reinstall — {session ? "copy the block above again" : "sign in, then copy the block"}{" "}
+              and paste it into Claude. Tell it to update the skill, and it replaces your{" "}
+              <code className="rounded bg-foreground/[0.06] px-1 font-mono text-[12px] text-foreground/80">
+                {skill.downloadName.replace("-setup.md", "")}
+              </code>{" "}
+              skill with v{version}. No uninstall, no config.
+            </p>
+          </div>
+
+          <ol className="relative border-l border-border pl-6">
+            {releases.map((release) => (
+              <li key={release.version} className="relative pb-8 last:pb-0">
+                <span className="absolute top-1.5 h-2.5 w-2.5 rounded-full bg-accent -left-[calc(1.5rem+5px)]" />
+                <div className="mb-2 flex items-center gap-2.5">
+                  <span className="font-mono text-[12px] font-semibold text-foreground">
+                    v{release.version}
+                  </span>
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-muted-2">
+                    {formatReleaseDate(release.date)}
+                  </span>
+                </div>
+                <ul className="flex flex-col gap-1.5">
+                  {release.changes.map((c, j) => (
+                    <li
+                      key={j}
+                      className="flex items-start gap-2.5 text-[13.5px] leading-relaxed text-muted"
+                    >
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-muted-2" />
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
         </div>
       </main>
       <Footer />

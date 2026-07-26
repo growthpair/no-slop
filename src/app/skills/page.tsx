@@ -27,7 +27,7 @@ export default async function SkillsIndex() {
         <header className="mx-auto max-w-5xl">
           <p className="eyebrow mb-5 text-accent-ink">The library</p>
           <h1 className="display text-[clamp(2.6rem,7vw,4.6rem)] text-foreground">
-            Every skill that kills the tell.
+            Every skill that deletes the tell.
           </h1>
           <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted sm:text-base">
             One paste each, into Claude Code or Cowork. Read the pitch and a

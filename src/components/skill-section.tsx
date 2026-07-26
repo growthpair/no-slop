@@ -14,9 +14,7 @@ export function SkillSection({ skill, index }: { skill: Skill; index: number }) 
   return (
     <section
       id={`skill-${skill.slug}`}
-      className={`border-border px-5 sm:px-8 ${
-        index === 0 ? "pt-8 pb-20 sm:pb-28" : "border-t py-20 sm:py-28"
-      }`}
+      className="border-t border-border px-5 py-20 sm:px-8 sm:py-28"
     >
       <div className="mx-auto max-w-5xl">
         {/* Header row */}

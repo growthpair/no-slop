@@ -23,10 +23,10 @@ export function HandStrike({
         className="pointer-events-none absolute left-[-3px] top-1/2 h-[0.58em] w-[calc(100%+6px)] -translate-y-1/2 overflow-visible"
       >
         <path
-          d="M1,8 C22,3 44,11 66,6 S104,4 119,8"
+          d="M2,8 C32,6.8 64,8.2 96,7.1 C108,6.7 114,7.5 118,7.2"
           fill="none"
           stroke="var(--slop)"
-          strokeWidth="2.4"
+          strokeWidth="2.2"
           strokeLinecap="round"
         />
       </svg>

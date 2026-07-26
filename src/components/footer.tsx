@@ -8,7 +8,7 @@ export function Footer() {
         <div className="max-w-xs">
           <Logo />
           <p className="mt-4 text-[13px] leading-relaxed text-muted">
-            Free Claude skills that kill the AI tell in your writing and design.
+            Free Claude skills that delete the AI tell in your writing and design.
             Built by Jonathan Martinez.
           </p>
         </div>
@@ -24,6 +24,9 @@ export function Footer() {
           </div>
           <div className="flex flex-col gap-2.5">
             <p className="eyebrow text-muted-2">More</p>
+            <Link href="/changelog" className="text-[13px] text-muted transition-colors hover:text-foreground">
+              Changelog
+            </Link>
             <a
               href="https://claudemarketers.substack.com"
               target="_blank"

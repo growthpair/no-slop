@@ -55,7 +55,7 @@ export function MarkedManuscript() {
           <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent">
             <Check size={14} strokeWidth={3} className="text-accent-contrast" />
           </span>
-          <p className="text-[16px] font-medium leading-snug text-foreground">
+          <p className="font-hand text-[24px] leading-none text-foreground">
             We use AI to help teams grow.
           </p>
         </div>

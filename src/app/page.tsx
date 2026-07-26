@@ -25,9 +25,9 @@ export default function Home() {
             <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
               {/* Copy */}
               <div>
-                <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-border bg-surface px-3 py-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                  <span className="font-mono text-[11px] uppercase tracking-widest text-muted">
+                <div className="mb-7 flex items-center gap-2.5">
+                  <span className="h-2 w-2 rounded-full bg-accent" />
+                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
                     Free Claude skills · for marketers
                   </span>
                 </div>
@@ -36,13 +36,13 @@ export default function Home() {
                   className="display text-[clamp(2.9rem,7vw,5.2rem)] text-foreground"
                   style={{ lineHeight: 1.12 }}
                 >
-                  AI writing and design
+                  AI writing &amp; design
                   <br />
                   have a{" "}
                   <HandStrike className="whitespace-nowrap text-muted">tell</HandStrike>.
                   <br />
                   These skills{" "}
-                  <span className="bg-accent px-2 text-accent-contrast">kill it</span>.
+                  <span className="bg-accent px-2 text-accent-contrast">delete it</span>.
                 </h1>
 
                 <p className="mt-7 max-w-md text-[15px] leading-relaxed text-muted sm:text-base">
@@ -155,14 +155,6 @@ export default function Home() {
 
         {/* -------------------------------------------------------------- Skills */}
         <div id="skills">
-          <div className="border-t border-border px-5 pt-16 sm:px-8">
-            <div className="mx-auto flex max-w-5xl items-center gap-3">
-              <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
-                {SKILLS_SORTED.length} skills · more on the way
-              </p>
-              <span className="h-px flex-1 bg-border" />
-            </div>
-          </div>
           {SKILLS_SORTED.map((skill, i) => (
             <SkillSection key={skill.slug} skill={skill} index={i} />
           ))}
