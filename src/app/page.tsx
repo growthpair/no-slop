@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { HeroEditor } from "@/components/hero-editor";
+import { MarkedManuscript } from "@/components/marked-manuscript";
 import { Grade } from "@/components/grade";
 import { FounderBar } from "@/components/founder-bar";
 import { HowItWorks } from "@/components/how-it-works";
@@ -70,9 +70,9 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Live demo */}
+              {/* Bespoke editor's-markup centerpiece */}
               <div className="lg:pl-4">
-                <HeroEditor />
+                <MarkedManuscript />
               </div>
             </div>
 
