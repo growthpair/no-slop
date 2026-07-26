@@ -1,5 +1,4 @@
 import { ArrowRight } from "lucide-react";
-import { BeforeAfterSlider } from "./before-after-slider";
 
 /** Fake browser chrome bar. */
 function Chrome() {
@@ -71,10 +70,11 @@ function FixedMock() {
 }
 
 /**
- * Bespoke before/after for the No Slop Design skill, as a drag-to-compare slider.
- * The same landing-page content, once as AI slop (purple gradient, glass, emoji,
- * centered, twin buttons) and once fixed. The gradient + glass live ONLY inside
- * the labelled slop layer; everything else on this site obeys the skill.
+ * Bespoke before/after for the No Slop Design skill: the same landing-page
+ * content shown side by side, once as AI slop (purple gradient, glass, emoji,
+ * centered, twin buttons) and once fixed. Side-by-side (not a wipe slider) so
+ * the contrast reads instantly — you see both complete designs at once. The
+ * gradient + glass live ONLY inside the labelled slop card.
  */
 export function NoSlopDesignShowcase({
   tells,
@@ -83,17 +83,45 @@ export function NoSlopDesignShowcase({
 }) {
   return (
     <>
-      <BeforeAfterSlider
-        before={<SlopMock />}
-        after={<FixedMock />}
-        beforeLabel="Slop"
-        beforeSub="what AI hands you"
-        afterLabel="No slop"
-        afterSub="what the skill returns"
-      />
-      <p className="mt-3 text-center font-mono text-[11px] uppercase tracking-widest text-muted-2">
-        ← Drag the handle to compare · same content, one looks generated →
-      </p>
+      <div className="grid gap-5 md:grid-cols-2">
+        {/* Slop */}
+        <div>
+          <div className="mb-3 flex items-center gap-2.5">
+            <span className="inline-flex items-center rounded-md bg-slop px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-widest text-white">
+              Slop
+            </span>
+            <span className="font-mono text-[11px] uppercase tracking-widest text-muted-2">
+              what AI hands you
+            </span>
+          </div>
+          <div className="h-72 overflow-hidden rounded-xl border border-border-strong">
+            <SlopMock />
+          </div>
+          <p className="mt-3 text-[12.5px] leading-relaxed text-muted">
+            Purple gradient, centered, gradient headline, glass card, emoji
+            eyebrow, twin buttons with no hierarchy.
+          </p>
+        </div>
+
+        {/* Fixed */}
+        <div>
+          <div className="mb-3 flex items-center gap-2.5">
+            <span className="inline-flex items-center rounded-md bg-accent px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-widest text-accent-contrast">
+              No slop
+            </span>
+            <span className="font-mono text-[11px] uppercase tracking-widest text-muted-2">
+              what the skill returns
+            </span>
+          </div>
+          <div className="h-72 overflow-hidden rounded-xl border border-border-strong">
+            <FixedMock />
+          </div>
+          <p className="mt-3 text-[12.5px] leading-relaxed text-muted">
+            One accent, left-aligned, real type hierarchy, a single primary CTA,
+            concrete numbers.
+          </p>
+        </div>
+      </div>
 
       {/* Tells grid */}
       {tells.length > 0 && (
