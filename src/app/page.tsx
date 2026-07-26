@@ -4,7 +4,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { MarkedManuscript } from "@/components/marked-manuscript";
 import { SlopGraveyard } from "@/components/slop-graveyard";
-import { HandStrike } from "@/components/marks";
+import { HandStrike, HandUnderline } from "@/components/marks";
 import { Grade } from "@/components/grade";
 import { FounderBar } from "@/components/founder-bar";
 import { HowItWorks } from "@/components/how-it-works";
@@ -25,11 +25,10 @@ export default function Home() {
             <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
               {/* Copy */}
               <div>
-                <div className="mb-7 flex items-center gap-2.5">
-                  <span className="h-2 w-2 rounded-full bg-accent" />
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
-                    Free Claude skills · for marketers
-                  </span>
+                <div className="mb-7 -rotate-1">
+                  <HandUnderline className="font-hand text-[23px] leading-tight text-foreground/85">
+                    free Claude skills, for marketers
+                  </HandUnderline>
                 </div>
 
                 <h1
