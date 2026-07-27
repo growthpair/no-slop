@@ -36,7 +36,7 @@ export default async function SkillsIndex() {
           </p>
           {!session && (
             <div className="mt-8">
-              <UnlockButton callbackPath="/skills" label="Unlock the library free" />
+              <UnlockButton callbackPath="/get" label="Unlock the library free" />
             </div>
           )}
         </header>

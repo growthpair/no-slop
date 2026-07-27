@@ -52,7 +52,7 @@ export default function Home() {
                 </p>
 
                 <div className="mt-9 flex flex-wrap items-center gap-5">
-                  <UnlockButton callbackPath="/#skills" label="Get the skills free" />
+                  <UnlockButton callbackPath="/get" label="Get the skills free" unlockedLabel="Go to your skills" />
                   <Link
                     href="#slop-check"
                     className="group inline-flex items-center gap-1.5 font-mono text-[12px] uppercase tracking-widest text-muted transition-colors hover:text-foreground"
@@ -174,7 +174,7 @@ export default function Home() {
               free, and you get the newsletter that ships with it.
             </p>
             <div className="mt-9 flex justify-center">
-              <UnlockButton callbackPath="/#skills" label="Get the skills free" />
+              <UnlockButton callbackPath="/get" label="Get the skills free" unlockedLabel="Go to your skills" />
             </div>
           </div>
         </section>

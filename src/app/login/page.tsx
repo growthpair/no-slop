@@ -1,8 +1,8 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Check, ExternalLink } from "lucide-react";
 import { Logo } from "@/components/logo";
 
@@ -53,9 +53,17 @@ function InAppWarning() {
 
 function LoginContent() {
   const params = useSearchParams();
-  const callbackUrl = params.get("callbackUrl") || "/#skills";
+  const router = useRouter();
+  const { status } = useSession();
+  const callbackUrl = params.get("callbackUrl") || "/get";
   const [embedded, setEmbedded] = useState(false);
   useEffect(() => setEmbedded(isInAppBrowser()), []);
+
+  // Already signed in? Don't show the sign-in screen again — send them straight
+  // to where they were headed (fixes landing back on /login when logged in).
+  useEffect(() => {
+    if (status === "authenticated") router.replace(callbackUrl);
+  }, [status, callbackUrl, router]);
 
   if (embedded) return <InAppWarning />;
 

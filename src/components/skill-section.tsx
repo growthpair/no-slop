@@ -3,6 +3,7 @@ import { ArrowUpRight, Check } from "lucide-react";
 import type { Skill } from "@/lib/skills";
 import { SkillShowcase, hasShowcase } from "./skill-showcase";
 import { UnlockButton } from "./unlock-button";
+import { SkillGateCopy } from "./skill-gate-copy";
 
 /**
  * One skill, rendered as a full landing section. Data-driven: adding a third
@@ -77,16 +78,11 @@ export function SkillSection({ skill, index }: { skill: Skill; index: number }) 
             </pre>
           </div>
           <div className="md:pl-4">
-            <p className="text-[15px] font-semibold leading-snug text-foreground">
-              Read the pitch free. Sign in to copy the full skill.
-            </p>
-            <p className="mt-1.5 mb-5 text-[13px] leading-relaxed text-muted">
-              One Google click unlocks the paste-ready block and the .md download,
-              and puts you on the newsletter. Free, no card.
-            </p>
+            <SkillGateCopy />
             <UnlockButton
               callbackPath={`/skills/${skill.slug}`}
               label="Unlock this skill"
+              unlockedLabel="Get the skill"
             />
           </div>
         </div>
