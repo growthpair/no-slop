@@ -75,7 +75,7 @@ export function NoSlopCopyShowcase() {
                 ) : (
                   <span
                     key={i}
-                    className="text-slop line-through decoration-slop/60 decoration-2"
+                    className="text-slop line-through decoration-wavy decoration-slop/70 decoration-1"
                   >
                     {seg.cut}
                   </span>
@@ -129,7 +129,7 @@ export function NoSlopCopyShowcase() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {CUTS.map((c) => (
             <div key={c.bad} className="rounded-xl border border-border bg-card p-4">
-              <p className="text-[13px] leading-snug text-muted line-through decoration-slop/50">
+              <p className="text-[13px] leading-snug text-muted line-through decoration-wavy decoration-slop/60">
                 {c.bad}
               </p>
               <p className="mt-1.5 flex items-start gap-1.5 text-sm font-medium leading-snug text-foreground">

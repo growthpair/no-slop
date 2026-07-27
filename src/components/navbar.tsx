@@ -30,6 +30,12 @@ export function Navbar() {
           >
             The tell
           </Link>
+          <Link
+            href="/changelog"
+            className="hidden px-2 font-mono text-[12px] uppercase tracking-widest text-muted transition-colors hover:text-foreground sm:inline"
+          >
+            Changelog
+          </Link>
           <NavAuth />
         </nav>
       </div>

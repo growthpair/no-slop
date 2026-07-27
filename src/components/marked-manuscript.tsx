@@ -37,11 +37,12 @@ export function MarkedManuscript() {
       {/* Marked-up body */}
       <div className="relative z-10 px-6 py-9 sm:px-8">
         <p className="text-[17px] leading-[2.35] text-foreground sm:text-[18px]">
-          <Fix to="Here&rsquo;s how">In today&rsquo;s fast-paced world,</Fix> we{" "}
+          <Fix to="We">In today&rsquo;s fast-paced world, we</Fix>{" "}
           <Fix to="use">leverage</Fix>{" "}
           <HandStrike className="text-muted">cutting-edge</HandStrike> AI to{" "}
-          <Fix to="help">seamlessly empower</Fix> teams and{" "}
-          <Fix to="grow">supercharge</Fix> growth.{" "}
+          <Fix to="help">seamlessly empower</Fix> teams{" "}
+          <HandStrike className="text-muted">and</HandStrike>{" "}
+          <Fix to="grow">supercharge growth.</Fix>{" "}
           <HandStrike className="text-muted">It&rsquo;s a game-changer.</HandStrike>
         </p>
 
@@ -55,7 +56,7 @@ export function MarkedManuscript() {
           <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent">
             <Check size={14} strokeWidth={3} className="text-accent-contrast" />
           </span>
-          <p className="font-hand text-[24px] leading-none text-foreground">
+          <p className="text-[17px] font-medium leading-snug text-foreground sm:text-[18px]">
             We use AI to help teams grow.
           </p>
         </div>

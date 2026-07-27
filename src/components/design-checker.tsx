@@ -146,7 +146,7 @@ export function DesignChecker() {
             <ul className="flex max-h-56 flex-col gap-1.5 overflow-y-auto pr-1">
               {[...checked].sort((a, b) => a - b).map((i) => (
                 <li key={i} className="flex items-start gap-2 text-[13px]">
-                  <span className="text-slop line-through decoration-slop/50">{TELLS[i].tell}</span>
+                  <span className="text-slop line-through decoration-wavy decoration-slop/60">{TELLS[i].tell}</span>
                   <ArrowRight size={11} className="mt-1 shrink-0 text-muted-2" />
                   <span className="text-foreground/80">{TELLS[i].fix}</span>
                 </li>

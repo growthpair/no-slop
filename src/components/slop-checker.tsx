@@ -17,7 +17,7 @@ function Highlighted({ text, hits }: { text: string; hits: SlopHit[] }) {
       <mark
         key={`h${i}`}
         title={h.fix}
-        className="rounded bg-slop/15 px-0.5 text-slop line-through decoration-slop/60"
+        className="rounded bg-slop/15 px-0.5 text-slop line-through decoration-wavy decoration-slop/60"
       >
         {text.slice(h.start, h.end)}
       </mark>
@@ -156,7 +156,7 @@ export function SlopChecker() {
                 <ul className="flex max-h-40 flex-col gap-1.5 overflow-y-auto pr-1">
                   {uniqueTells.map((h, i) => (
                     <li key={i} className="flex items-center gap-2 text-[13px]">
-                      <span className="text-slop line-through decoration-slop/50">{h.text}</span>
+                      <span className="text-slop line-through decoration-wavy decoration-slop/60">{h.text}</span>
                       <ArrowRight size={11} className="shrink-0 text-muted-2" />
                       <span className="text-foreground/80">{h.fix}</span>
                     </li>
