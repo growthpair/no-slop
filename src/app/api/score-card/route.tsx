@@ -17,6 +17,7 @@ export async function GET(req: Request) {
   const tells = clampInt(searchParams.get("tells"), 0, 999, 0);
   const words = clampInt(searchParams.get("words"), 0, 999999, 0);
   const label = (searchParams.get("label") || "Graded").slice(0, 40);
+  const subject = (searchParams.get("subject") || "").slice(0, 48);
   const tips = (searchParams.get("tips") || "")
     .split(",")
     .map((t) => t.trim())
@@ -73,6 +74,11 @@ export async function GET(req: Request) {
 
         {/* Score block */}
         <div style={{ display: "flex", flexDirection: "column" }}>
+          {subject ? (
+            <div style={{ display: "flex", color: "#14140f", fontSize: 46, fontWeight: 800, letterSpacing: -1, marginBottom: 6 }}>
+              {subject}
+            </div>
+          ) : null}
           <div style={{ display: "flex", color: "#8c8c82", fontSize: 24, fontFamily: "monospace", letterSpacing: 4 }}>
             AI-TELL SCORE
           </div>

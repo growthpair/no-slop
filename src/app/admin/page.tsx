@@ -32,6 +32,12 @@ export default async function AdminPage() {
     orderBy: { createdAt: "asc" },
   });
 
+  // Slop Index submissions (for takedown).
+  const slopEntries = await prisma.slopEntry.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 200,
+  });
+
   const now = new Date();
   const total = users.length;
 
@@ -278,6 +284,49 @@ export default async function AdminPage() {
                   </tbody>
                 </table>
               </div>
+            )}
+          </div>
+
+          {/* Slop Index submissions — takedown */}
+          <div className="mt-6 overflow-hidden rounded-xl border border-border bg-card">
+            <div className="flex items-center justify-between border-b border-border px-5 py-3">
+              <h2 className="font-mono text-[11px] uppercase tracking-widest text-muted">
+                Slop Index submissions
+              </h2>
+              <span className="font-mono text-[11px] text-muted-2">{slopEntries.length}</span>
+            </div>
+            {slopEntries.length === 0 ? (
+              <p className="px-5 py-8 text-center text-[13px] text-muted">
+                No user submissions yet.
+              </p>
+            ) : (
+              <ul className="divide-y divide-border">
+                {slopEntries.map((e) => (
+                  <li key={e.id} className="flex items-start justify-between gap-4 px-5 py-3">
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-[13.5px] font-semibold text-foreground">{e.name}</span>
+                        {e.note && (
+                          <span className="font-mono text-[10px] uppercase tracking-widest text-muted-2">
+                            {e.note}
+                          </span>
+                        )}
+                        <span className="font-mono text-[11px] text-muted-2">{fmtDate(e.createdAt)}</span>
+                      </div>
+                      <p className="mt-1 line-clamp-2 text-[12.5px] leading-relaxed text-muted">{e.copy}</p>
+                    </div>
+                    <form action="/api/admin/slop-entry" method="post" className="shrink-0">
+                      <input type="hidden" name="id" value={e.id} />
+                      <button
+                        type="submit"
+                        className="rounded-md border border-border px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-widest text-slop transition-colors hover:border-slop/50"
+                      >
+                        Delete
+                      </button>
+                    </form>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
         </div>

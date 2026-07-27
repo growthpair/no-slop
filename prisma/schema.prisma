@@ -58,3 +58,17 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+// User-submitted entries for the public Slop Index. The score is computed at
+// render from `copy` (never stored), so the detector stays the single source of
+// truth. Curated seed entries live in code (lib/slop-index.ts); these merge in.
+model SlopEntry {
+  id        String   @id @default(cuid())
+  name      String // brand / subject
+  note      String? // category tag
+  sourceUrl String?
+  copy      String // the marketing copy that gets graded
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
