@@ -47,7 +47,7 @@ export default async function GetPage() {
           </h1>
           <p className="mt-5 max-w-prose text-[15px] leading-relaxed text-muted sm:text-base">
             Both skills are below, ready to paste. Copy one, drop it into Claude
-            Code or Cowork, and it installs itself — no config. New skills land in
+            Code or Cowork, and it installs itself. No config. New skills land in
             your account free the day they drop, and you&apos;re on the newsletter.
           </p>
 

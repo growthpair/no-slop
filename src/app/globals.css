@@ -179,6 +179,19 @@ body {
   animation: caret 1.05s step-end infinite;
 }
 
+/* Hand-drawn red-pen strike. A repeating irregular stroke (not a CSS wavy
+   sine), so it reads like the header's hand marks but, unlike an absolute SVG,
+   tiles across line wraps. box-decoration-break: clone keeps each wrapped
+   fragment struck. Slop red is baked in (the theme is forced light). */
+.pen-strike {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='36'%20height='9'%20viewBox='0%200%2036%209'%3E%3Cpath%20d='M0,4.6%20C6,3.5%2012,5.6%2018,4.5%20C24,3.6%2030,5.5%2036,4.4'%20fill='none'%20stroke='%23d6402a'%20stroke-width='2'%20stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: left 58%;
+  background-size: auto 0.62em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
 /* Subtle rise-in on scroll (progressive; no layout shift). */
 @keyframes rise {
   from {

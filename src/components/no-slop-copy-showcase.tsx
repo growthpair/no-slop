@@ -57,26 +57,23 @@ function DocChrome({ label }: { label: string }) {
 export function NoSlopCopyShowcase() {
   return (
     <>
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid items-stretch gap-5 md:grid-cols-2">
         {/* Draft */}
-        <div>
+        <div className="flex flex-col">
           <div className="mb-3 flex items-center gap-2">
             <span className="inline-flex items-center rounded-full border border-slop/30 bg-slop/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-slop">
               Draft
             </span>
             <span className="font-mono text-[11px] text-muted-2">what the AI hands you</span>
           </div>
-          <div className="overflow-hidden rounded-xl border border-border bg-card">
+          <div className="flex-1 overflow-hidden rounded-xl border border-border bg-card">
             <DocChrome label="launch-email — draft" />
             <p className="px-5 py-5 text-[14px] leading-[1.9] text-muted">
               {DRAFT.map((seg, i) =>
                 typeof seg === "string" ? (
                   <span key={i}>{seg}</span>
                 ) : (
-                  <span
-                    key={i}
-                    className="text-slop line-through decoration-wavy decoration-slop/70 decoration-1"
-                  >
+                  <span key={i} className="pen-strike text-slop">
                     {seg.cut}
                   </span>
                 )
@@ -90,14 +87,14 @@ export function NoSlopCopyShowcase() {
         </div>
 
         {/* Clean */}
-        <div>
+        <div className="flex flex-col">
           <div className="mb-3 flex items-center gap-2">
             <span className="inline-flex items-center rounded-full border border-accent/40 bg-accent/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-accent-ink">
               No slop
             </span>
             <span className="font-mono text-[11px] text-muted-2">what the skill returns</span>
           </div>
-          <div className="overflow-hidden rounded-xl border border-border-strong bg-card">
+          <div className="flex-1 overflow-hidden rounded-xl border border-border-strong bg-card">
             <DocChrome label="launch-email — clean" />
             <p className="px-5 py-5 text-[15px] leading-[1.9] text-foreground">
               {CLEAN.map((seg, i) =>
@@ -129,7 +126,7 @@ export function NoSlopCopyShowcase() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {CUTS.map((c) => (
             <div key={c.bad} className="rounded-xl border border-border bg-card p-4">
-              <p className="text-[13px] leading-snug text-muted line-through decoration-wavy decoration-slop/60">
+              <p className="pen-strike inline-block text-[13px] leading-snug text-muted">
                 {c.bad}
               </p>
               <p className="mt-1.5 flex items-start gap-1.5 text-sm font-medium leading-snug text-foreground">

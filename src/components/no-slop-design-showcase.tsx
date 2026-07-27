@@ -135,7 +135,7 @@ export function NoSlopDesignShowcase({
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {tells.map((t) => (
               <div key={t.bad} className="rounded-xl border border-border bg-card p-4">
-                <p className="text-[13px] leading-snug text-muted line-through decoration-wavy decoration-slop/60">
+                <p className="pen-strike inline-block text-[13px] leading-snug text-muted">
                   {t.bad}
                 </p>
                 <p className="mt-1.5 flex items-start gap-1.5 text-sm font-medium leading-snug text-foreground">

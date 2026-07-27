@@ -9,7 +9,16 @@ export function Footer() {
           <Logo />
           <p className="mt-4 text-[13px] leading-relaxed text-muted">
             Free Claude skills that delete the AI tell in your writing and design.
-            Built by Jonathan Martinez.
+            Built by{" "}
+            <a
+              href="https://www.linkedin.com/in/jon4growth"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline decoration-border-strong underline-offset-2 transition-colors hover:decoration-foreground"
+            >
+              jon4growth
+            </a>
+            .
           </p>
         </div>
         <div className="flex gap-14">

@@ -167,7 +167,8 @@ export default function Home() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="eyebrow mb-5 text-accent-ink">Free with a Google account</p>
             <h2 className="display text-[clamp(2.2rem,5.5vw,3.8rem)] text-foreground">
-              Ship work that doesn&apos;t look generated.
+              Ship work that doesn&apos;t{" "}
+              <span className="whitespace-nowrap">look generated.</span>
             </h2>
             <p className="mx-auto mt-5 max-w-md text-[15px] leading-relaxed text-muted">
               Sign in once. Copy the skills. Every new one lands in your account
