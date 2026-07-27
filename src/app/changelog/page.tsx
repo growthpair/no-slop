@@ -27,7 +27,7 @@ export default function ChangelogPage() {
           <p className="mt-5 text-[15px] leading-relaxed text-muted sm:text-base">
             Every time a skill gets sharper, it lands here.{" "}
             <strong className="font-semibold text-foreground">Already installed one?</strong>{" "}
-            You don&rsquo;t reinstall from scratch — copy the latest block again and paste it
+            You don&rsquo;t reinstall from scratch. Copy the latest block again and paste it
             into Claude, and it replaces your version with the new one. That&rsquo;s the whole
             update, no uninstall.
           </p>

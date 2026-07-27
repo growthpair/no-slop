@@ -20,11 +20,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "DeleteSlop — delete the AI tell in your writing and design",
+  title: "DeleteSlop: delete the AI tell in your writing and design",
   description:
     "Free Claude skills that scrub the AI tell out of your writing and marketing design. One paste installs a sharp editor and art director. Free with a Google account.",
   openGraph: {
-    title: "DeleteSlop — delete the AI tell",
+    title: "DeleteSlop: delete the AI tell",
     description:
       "Free Claude skills that scrub the AI tell out of your writing and marketing design.",
     url: SITE_URL,
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DeleteSlop — delete the AI tell",
+    title: "DeleteSlop: delete the AI tell",
     description:
       "Free Claude skills that scrub the AI tell out of your writing and marketing design.",
   },

@@ -68,6 +68,7 @@ model SlopEntry {
   note      String? // category tag
   sourceUrl String?
   copy      String // the marketing copy that gets graded
+  userId    String? // who submitted it (signed-in only)
   createdAt DateTime @default(now())
 
   @@index([createdAt])

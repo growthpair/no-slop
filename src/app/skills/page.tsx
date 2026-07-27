@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "The library · DeleteSlop",
   description:
-    "Every DeleteSlop skill in one place. Copy-paste anti-slop skills for Claude — free with a Google account.",
+    "Every DeleteSlop skill in one place. Copy-paste anti-slop skills for Claude. Free with a Google account.",
 };
 
 export default async function SkillsIndex() {
@@ -32,7 +32,7 @@ export default async function SkillsIndex() {
           <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted sm:text-base">
             One paste each, into Claude Code or Cowork. Read the pitch and a
             preview free. Sign in with Google to copy the full skill and join the
-            newsletter — every new one lands in your account the day it drops.
+            newsletter. Every new one lands in your account the day it drops.
           </p>
           {!session && (
             <div className="mt-8">

@@ -105,7 +105,7 @@ export default async function SkillPage({
         {/* The skill block — gated */}
         <div className="mx-auto mt-14 max-w-3xl">
           {session ? (
-            <SkillContent content={skill.install} downloadName={skill.downloadName} />
+            <SkillContent content={skill.install} />
           ) : (
             <div className="relative">
               {/* Safe preview excerpt as the teaser */}
@@ -149,7 +149,7 @@ export default async function SkillPage({
               Already installed an older version?
             </p>
             <p className="mt-1.5 text-[13px] leading-relaxed text-muted">
-              You don&apos;t reinstall — {session ? "copy the block above again" : "sign in, then copy the block"}{" "}
+              You don&apos;t reinstall. {session ? "Copy the block above again" : "Sign in, then copy the block"}{" "}
               and paste it into Claude. Tell it to update the skill, and it replaces your{" "}
               <code className="rounded bg-foreground/[0.06] px-1 font-mono text-[12px] text-foreground/80">
                 {skill.downloadName.replace("-setup.md", "")}

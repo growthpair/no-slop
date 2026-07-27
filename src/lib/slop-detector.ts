@@ -178,7 +178,7 @@ export function detectSlop(text: string): SlopResult {
     headline = "No tells found. This reads like a person wrote it.";
   } else if (score <= 3) {
     label = "Mostly clean";
-    headline = `${hits.length} tell${hits.length === 1 ? "" : "s"} — a quick pass fixes it.`;
+    headline = `${hits.length} tell${hits.length === 1 ? "" : "s"}. A quick pass fixes it.`;
   } else if (score <= 6) {
     label = "Reads a bit like AI";
     headline = `${hits.length} tells. A buyer would start to feel it.`;

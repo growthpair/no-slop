@@ -12,7 +12,7 @@ export function FounderBar() {
       <p className="text-[14px] leading-relaxed text-foreground">
         <span className="font-semibold">Jonathan Martinez</span>
         <span className="text-muted">
-          {" "}— growth at Uber, Coinbase &amp; Postmates. Now I teach marketers to run Claude at{" "}
+          {". "}Growth at Uber, Coinbase &amp; Postmates. Now I teach marketers to run Claude at{" "}
         </span>
         <a
           href="https://claudemarketers.com"

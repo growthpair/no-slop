@@ -115,11 +115,11 @@ Every piece of writing (emails, docs, posts, Slack, notes, drafts) follows this.
 
 - Never these words: delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, paradigm shift, game changer, tapestry, realm, beacon, pivotal, multifaceted, meticulous, intricate...`;
 
-const NO_SLOP_DESIGN_INSTALL = `Set up a "No AI Slop — Design" system for me. Do both steps:
+const NO_SLOP_DESIGN_INSTALL = `Set up a "No AI Slop: Design" system for me. Do both steps:
 
 STEP 1: Add this section to my CLAUDE.md memory file (use ~/.claude/CLAUDE.md if this is Claude Code, or my Cowork folder's CLAUDE.md if this is Cowork; create the file if it doesn't exist):
 
-## No AI Slop — Design (applies to anything visual you make or critique)
+## No AI Slop: Design (applies to anything visual you make or critique)
 
 Marketing design that looks AI-generated kills trust and conversion. Before shipping any landing page, email, ad, social graphic, deck, or one-pager, catch these and fix them. For a full design audit, use the no-slop-design skill.
 
@@ -172,11 +172,11 @@ Lead the eye: one focal point per view, then a clear second and third (Z or F pa
 ## Workflow
 1. Identify the surface (landing page, email, ad, social, deck) and the one job it has to do. 2. Audit request -> list each slop tell, where it is, and the fix; then name the top 3 changes for trust and conversion. 3. Direct request -> apply every rule as you build, flag the palette/type/focal-point calls out loud. 4. Re-scan for any surviving tell before you hand it back. 5. Never ship placeholder content as final; real copy, real numbers, real assets. 6. Sign-off stays with the user.`;
 
-const NO_SLOP_DESIGN_PREVIEW = `Set up a "No AI Slop — Design" system for me. Do both steps:
+const NO_SLOP_DESIGN_PREVIEW = `Set up a "No AI Slop: Design" system for me. Do both steps:
 
 STEP 1: Add this section to my CLAUDE.md memory file (use ~/.claude/CLAUDE.md if this is Claude Code, or my Cowork folder's CLAUDE.md if this is Cowork; create the file if it doesn't exist):
 
-## No AI Slop — Design (applies to anything visual you make or critique)
+## No AI Slop: Design (applies to anything visual you make or critique)
 
 Marketing design that looks AI-generated kills trust and conversion. Before shipping any landing page, email, ad, social graphic, deck, or one-pager, catch these and fix them.
 
@@ -194,7 +194,7 @@ export const SKILLS: Skill[] = [
     addedAt: "2026-07-24",
     tools: ["Claude Code", "Claude Cowork"],
     summary:
-      "AI design has a look: purple gradients, everything centered, glassmorphic cards, emoji headings, the same three-icon grid. Buyers clock it in half a second and trust drops. This skill installs an art director that catches all of it across the surfaces marketers actually ship, landing pages, emails, ads, and decks. It works two ways: a standing rule so nothing you generate defaults to slop, and an on-demand audit you run on any page or screenshot.",
+      "AI design has a look: purple gradients, everything centered, glassmorphic cards, emoji headings, the same three-icon grid. Buyers clock it in half a second and trust drops. This skill installs an art director that catches all of it across the surfaces marketers ship, landing pages, emails, ads, and decks. It works two ways: a standing rule so nothing you generate defaults to slop, and an on-demand audit you run on any page or screenshot.",
     forWho:
       "Marketers and founders who ship landing pages, emails, ads, and decks with AI and want them to look designed, not generated.",
     whatYouGet: [

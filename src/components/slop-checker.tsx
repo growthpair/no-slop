@@ -71,7 +71,7 @@ export function SlopChecker() {
           id="slop-input"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Paste an email, a landing page section, a LinkedIn post — anything you wrote with AI. It's graded right here in your browser. Nothing is sent anywhere."
+          placeholder="Paste an email, a landing page section, a LinkedIn post, anything you wrote with AI. It's graded right here in your browser. Nothing is sent anywhere."
           rows={10}
           className="min-h-[240px] flex-1 resize-y rounded-xl border border-border-strong bg-surface p-4 text-[14px] leading-relaxed text-foreground placeholder:text-muted-2 focus:border-accent focus:outline-none"
         />

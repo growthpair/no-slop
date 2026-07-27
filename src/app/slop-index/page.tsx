@@ -1,8 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Download, ArrowUpRight, Plus } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Plus } from "lucide-react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { SLOP_INDEX_SEED } from "@/lib/slop-index";
-import { detectSlop, SLOP_SAMPLE } from "@/lib/slop-detector";
+import { detectSlop, SLOP_SAMPLE, type SlopHit } from "@/lib/slop-detector";
 import { prisma } from "@/lib/prisma";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -15,17 +17,26 @@ export const metadata: Metadata = {
     "Real brand marketing copy ranked by AI-tell density, scored live by the same detector the No Slop skills run. Add any brand.",
 };
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://deleteslop.com";
+type Row = { name: string; note: string; url: string; sample: string; submitted: boolean };
 
-function cardUrl(subject: string, score: number, tells: number, words: number, label: string, tips: string[]) {
-  return (
-    `${SITE}/api/score-card?subject=${encodeURIComponent(subject)}&score=${score}` +
-    `&tells=${tells}&words=${words}&label=${encodeURIComponent(label)}` +
-    `&tips=${encodeURIComponent(tips.join(","))}`
-  );
+/** Render copy with each detected tell struck, server-side (the receipts). */
+function HighlightedCopy({ text, hits }: { text: string; hits: SlopHit[] }) {
+  const nodes: React.ReactNode[] = [];
+  let cursor = 0;
+  hits.forEach((h, i) => {
+    if (h.start > cursor) nodes.push(<span key={`t${i}`}>{text.slice(cursor, h.start)}</span>);
+    nodes.push(
+      <span key={`h${i}`} className="pen-strike text-slop">
+        {text.slice(h.start, h.end)}
+      </span>
+    );
+    cursor = h.end;
+  });
+  if (cursor < text.length) nodes.push(<span key="end">{text.slice(cursor)}</span>);
+  return <>{nodes}</>;
 }
 
-type Row = { name: string; note: string; url: string; sample: string; submitted: boolean };
+const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? "" : "s"}`;
 
 export default async function SlopIndexPage({
   searchParams,
@@ -33,6 +44,7 @@ export default async function SlopIndexPage({
   searchParams: Promise<{ added?: string; error?: string }>;
 }) {
   const sp = await searchParams;
+  const session = await getServerSession(authOptions);
 
   // Curated seed (code) + user submissions (DB). DB is best-effort: if it's
   // unreachable the page still renders the curated board.
@@ -59,16 +71,13 @@ export default async function SlopIndexPage({
     .map((row) => {
       const result = detectSlop(row.sample);
       const seen = new Set<string>();
-      const topTells = result.hits
-        .filter((h) => {
-          const k = h.text.toLowerCase();
-          if (seen.has(k)) return false;
-          seen.add(k);
-          return true;
-        })
-        .slice(0, 4)
-        .map((h) => h.text);
-      return { ...row, result, topTells };
+      const uniqueTells = result.hits.filter((h) => {
+        const k = h.text.toLowerCase();
+        if (seen.has(k)) return false;
+        seen.add(k);
+        return true;
+      });
+      return { ...row, result, uniqueTells };
     })
     .sort((a, b) => b.result.score - a.result.score || b.result.hits.length - a.result.hits.length);
 
@@ -91,7 +100,7 @@ export default async function SlopIndexPage({
           </h1>
           <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-muted sm:text-base">
             We ran each brand&apos;s real marketing copy through the same detector
-            the No Slop skills run. Mostly the answer is no &mdash; big brands hire
+            the No Slop skills run. Mostly the answer is no. Big brands hire
             copywriters, so they score near zero. That&apos;s the bar. A typical
             AI-written draft scores{" "}
             <span className="font-semibold text-slop">{aiDraft.score}/10</span> on
@@ -144,7 +153,9 @@ export default async function SlopIndexPage({
           )}
           {sp?.error && (
             <p className="mt-6 rounded-lg border border-slop/30 bg-slop/10 px-4 py-3 text-[13.5px] text-foreground">
-              That didn&apos;t save. Add a brand name and at least a sentence or two of copy.
+              {sp.error === "scrape"
+                ? "Couldn't read that page (it may block bots or load its copy with JavaScript). Paste the copy in the box below instead."
+                : "That didn't save. Add a brand name and a URL we can read (or paste the copy)."}
             </p>
           )}
         </header>
@@ -162,9 +173,9 @@ export default async function SlopIndexPage({
             {ranked.map((r, i) => (
               <li
                 key={`${r.name}-${i}`}
-                className="grid items-center gap-4 rounded-xl border border-border bg-card p-5 sm:grid-cols-[auto_1fr_auto]"
+                className="grid items-start gap-4 rounded-xl border border-border bg-card p-5 sm:grid-cols-[auto_1fr]"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 sm:pt-0.5">
                   <span className="font-mono text-[13px] font-semibold text-muted-2">
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -202,35 +213,40 @@ export default async function SlopIndexPage({
                       </a>
                     )}
                   </div>
-                  <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
-                    {r.result.hits.length === 0 ? (
-                      <span className="font-mono text-[11px] uppercase tracking-widest text-accent-ink">
-                        Clean · no AI tells
-                      </span>
-                    ) : (
-                      <>
-                        {r.topTells.map((t) => (
-                          <span key={t} className="pen-strike text-[13px] text-slop">
-                            {t}
-                          </span>
+                  {r.result.hits.length === 0 ? (
+                    <p className="mt-1.5 font-mono text-[11px] uppercase tracking-widest text-accent-ink">
+                      Clean · no AI tells
+                    </p>
+                  ) : (
+                    <div className="mt-2">
+                      <p className="mb-2 font-mono text-[11px] text-muted-2">
+                        {plural(r.result.hits.length, "tell")} · {r.result.wordCount} words
+                      </p>
+                      <ul className="flex flex-col gap-1">
+                        {r.uniqueTells.slice(0, 6).map((h) => (
+                          <li key={h.text} className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[13px]">
+                            <span className="pen-strike text-slop">{h.text}</span>
+                            <span className="text-muted-2">→</span>
+                            <span className="text-foreground/70">{h.fix}</span>
+                          </li>
                         ))}
-                        <span className="font-mono text-[11px] text-muted-2">
-                          {r.result.hits.length} tells · {r.result.wordCount} words
-                        </span>
-                      </>
-                    )}
-                  </div>
+                        {r.uniqueTells.length > 6 && (
+                          <li className="font-mono text-[11px] text-muted-2">
+                            +{r.uniqueTells.length - 6} more
+                          </li>
+                        )}
+                      </ul>
+                      <details className="group mt-2">
+                        <summary className="inline-flex cursor-pointer list-none items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-muted-2 transition-colors hover:text-foreground">
+                          Show the copy
+                        </summary>
+                        <p className="mt-2 whitespace-pre-wrap rounded-lg border border-border bg-surface p-3 text-[12.5px] leading-relaxed text-foreground/80">
+                          <HighlightedCopy text={r.sample} hits={r.result.hits} />
+                        </p>
+                      </details>
+                    </div>
+                  )}
                 </div>
-
-                <a
-                  href={cardUrl(r.name, r.result.score, r.result.hits.length, r.result.wordCount, r.result.label, r.topTells)}
-                  download={`slop-index-${r.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.png`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 justify-self-start rounded-md border border-border px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-widest text-muted transition-colors hover:border-border-strong hover:text-foreground sm:justify-self-end"
-                >
-                  <Download size={13} /> Card
-                </a>
               </li>
             ))}
           </ol>
@@ -241,9 +257,11 @@ export default async function SlopIndexPage({
           <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
             <h2 className="display text-[clamp(1.6rem,4vw,2.4rem)] text-foreground">Add a brand to the board</h2>
             <p className="mt-3 text-[14px] leading-relaxed text-muted">
-              Paste a brand&apos;s real public marketing copy (a hero section, an
-              about blurb). It&apos;s scored on the spot and added to the board.
+              Drop the brand&apos;s URL and we&apos;ll read its copy, score it, and add
+              it to the board. Some sites block bots or hide copy in JavaScript, so you
+              can paste the copy yourself as a fallback.
             </p>
+            {session ? (
             <form action="/api/slop-index/submit" method="post" className="mt-6 flex flex-col gap-4">
               {/* Honeypot */}
               <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
@@ -270,24 +288,26 @@ export default async function SlopIndexPage({
                 </label>
               </div>
               <label className="flex flex-col gap-1.5">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-2">Source URL</span>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-2">Page URL *</span>
                 <input
                   name="sourceUrl"
                   type="url"
+                  required
                   maxLength={300}
-                  placeholder="https://…"
+                  placeholder="https://brand.com"
                   className="rounded-lg border border-border-strong bg-surface px-3.5 py-2.5 text-[14px] text-foreground placeholder:text-muted-2 focus:border-accent focus:outline-none"
                 />
+                <span className="text-[11px] text-muted-2">We read the copy from this page.</span>
               </label>
               <label className="flex flex-col gap-1.5">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-2">Marketing copy *</span>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-2">
+                  Paste the copy (only if the scrape fails)
+                </span>
                 <textarea
                   name="copy"
-                  required
-                  minLength={20}
                   maxLength={1200}
-                  rows={5}
-                  placeholder="Paste their real hero / marketing copy here…"
+                  rows={4}
+                  placeholder="Optional. Leave blank and we'll read the page ourselves."
                   className="resize-y rounded-lg border border-border-strong bg-surface px-3.5 py-2.5 text-[14px] leading-relaxed text-foreground placeholder:text-muted-2 focus:border-accent focus:outline-none"
                 />
               </label>
@@ -298,6 +318,20 @@ export default async function SlopIndexPage({
                 Score it &amp; add <ArrowRight size={14} />
               </button>
             </form>
+            ) : (
+              <div className="mt-6 flex flex-col items-start gap-3">
+                <p className="text-[13.5px] leading-relaxed text-muted">
+                  Sign in to add a brand. Free, one Google click, and it keeps the
+                  board clean of spam.
+                </p>
+                <a
+                  href="/login?callbackUrl=/slop-index"
+                  className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 font-mono text-[12px] font-semibold uppercase tracking-widest text-accent-contrast transition-colors hover:bg-accent-hover"
+                >
+                  Sign in to add <ArrowRight size={14} />
+                </a>
+              </div>
+            )}
           </div>
 
           {/* Disclaimer */}

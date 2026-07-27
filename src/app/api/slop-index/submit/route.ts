@@ -1,36 +1,46 @@
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 /**
- * Public submission to the Slop Index. Anyone can add a brand's marketing copy;
- * it auto-publishes. The score is computed at render from `copy`, so what's
- * shown is exactly what was scored (transparent + defensible). Abuse is handled
- * by admin takedown (/admin), not gating — per product decision.
+ * Submission to the Slop Index. Signed-in users only. You give a URL and we
+ * scrape the page's marketing copy; pasting copy is an optional fallback for
+ * sites that block bots or render via JS. The score is computed at render from
+ * `copy`, so what's shown is exactly what was scored (transparent + defensible).
  */
 export async function POST(req: Request) {
   const origin = new URL(req.url).origin;
   const back = (path: string) => NextResponse.redirect(`${origin}${path}`, { status: 303 });
 
+  const session = await getServerSession(authOptions);
+  const userId = (session?.user as { id?: string } | undefined)?.id;
+  if (!session) return back("/login?callbackUrl=/slop-index");
+
   const form = await req.formData();
 
   // Honeypot: real users leave this empty; bots fill it.
-  if ((form.get("website") as string)?.trim()) {
-    return back("/slop-index?added=1");
-  }
+  if ((form.get("website") as string)?.trim()) return back("/slop-index?added=1");
 
   const name = clean(form.get("name"), 80);
   const note = clean(form.get("note"), 40);
-  const copy = clean(form.get("copy"), 1200);
+  const pasted = clean(form.get("copy"), 1200);
   const sourceUrlRaw = clean(form.get("sourceUrl"), 300);
   const sourceUrl = /^https?:\/\//i.test(sourceUrlRaw) ? sourceUrlRaw : "";
 
-  if (name.length < 1 || copy.trim().length < 20) {
-    return back("/slop-index?error=1");
+  if (name.length < 1) return back("/slop-index?error=1");
+
+  // Prefer pasted copy; otherwise scrape the URL.
+  let copy = pasted;
+  if (copy.trim().length < 20) {
+    if (!sourceUrl) return back("/slop-index?error=1");
+    copy = await scrapeCopy(sourceUrl);
+    if (copy.trim().length < 20) return back("/slop-index?error=scrape");
   }
 
   try {
     await prisma.slopEntry.create({
-      data: { name, note: note || null, copy, sourceUrl: sourceUrl || null },
+      data: { name, note: note || null, copy, sourceUrl: sourceUrl || null, userId: userId || null },
     });
   } catch {
     return back("/slop-index?error=2");
@@ -41,4 +51,121 @@ export async function POST(req: Request) {
 
 function clean(v: FormDataEntryValue | null, max: number): string {
   return (typeof v === "string" ? v : "").trim().slice(0, max);
+}
+
+/** Block loopback / private / cloud-metadata hosts (basic SSRF guard). */
+function isBlockedHost(host: string): boolean {
+  const h = host.toLowerCase().replace(/^\[|\]$/g, "");
+  return (
+    h === "localhost" ||
+    h.endsWith(".localhost") ||
+    h.endsWith(".internal") ||
+    h === "metadata.google.internal" ||
+    h === "0.0.0.0" ||
+    h === "::1" ||
+    /^127\./.test(h) ||
+    /^10\./.test(h) ||
+    /^192\.168\./.test(h) ||
+    /^169\.254\./.test(h) ||
+    /^172\.(1[6-9]|2\d|3[01])\./.test(h)
+  );
+}
+
+/**
+ * Fetch a page and pull its marketing-ish copy: title, meta description,
+ * headings, and the first substantial paragraphs. Best-effort; returns "" on
+ * any failure (bot block, JS-only page, timeout) so the caller can fall back.
+ */
+async function scrapeCopy(url: string): Promise<string> {
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return "";
+  }
+  if (!/^https?:$/.test(parsed.protocol) || isBlockedHost(parsed.hostname)) return "";
+
+  let html: string;
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(parsed.toString(), {
+      redirect: "follow",
+      signal: controller.signal,
+      headers: {
+        "user-agent":
+          "Mozilla/5.0 (compatible; DeleteSlopBot/1.0; +https://deleteslop.com)",
+        accept: "text/html",
+      },
+    });
+    clearTimeout(timer);
+    if (!res.ok || !/text\/html/i.test(res.headers.get("content-type") || "")) return "";
+    html = (await res.text()).slice(0, 500_000);
+  } catch {
+    return "";
+  }
+
+  const strip = (s: string) =>
+    s
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&amp;/gi, "&")
+      .replace(/&#39;|&rsquo;|&lsquo;|&apos;/gi, "'")
+      .replace(/&quot;|&ldquo;|&rdquo;/gi, '"')
+      .replace(/&mdash;/gi, "—")
+      .replace(/&[a-z0-9#]+;/gi, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const noHead = html
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<noscript[\s\S]*?<\/noscript>/gi, " ");
+
+  // Hero zone: the top of the body, where the marketing copy lives. Slicing
+  // here keeps footer/nav-heavy sections out of the scored text.
+  const bodyIdx = noHead.search(/<body[^>]*>/i);
+  const start = bodyIdx >= 0 ? bodyIdx : 0;
+  const zone = noHead.slice(start, start + 18000);
+
+  // Meta tags (title, description, og:*, twitter:*) are server-rendered even on
+  // JS-heavy SPAs, so they carry the hero copy the body doesn't.
+  const meta = (key: string) => {
+    const a = html.match(
+      new RegExp(`<meta[^>]+(?:name|property)=["']${key}["'][^>]+content=["']([^"']*)["']`, "i")
+    );
+    const b = html.match(
+      new RegExp(`<meta[^>]+content=["']([^"']*)["'][^>]+(?:name|property)=["']${key}["']`, "i")
+    );
+    const m = a || b;
+    return m ? strip(m[1]) : "";
+  };
+
+  const parts: string[] = [];
+  const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  if (title) parts.push(strip(title[1]));
+  for (const key of ["description", "og:title", "og:description", "twitter:description"]) {
+    const v = meta(key);
+    if (v) parts.push(v);
+  }
+  const h1 = zone.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+  if (h1) parts.push(strip(h1[1]));
+  const paras = [...zone.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map((m) => strip(m[1]))
+    .filter((p) => p.length > 55)
+    .slice(0, 4);
+  parts.push(...paras);
+
+  // Dedupe and cap to a hero-sized excerpt.
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const p of parts) {
+    const k = p.toLowerCase();
+    if (p && !seen.has(k)) {
+      seen.add(k);
+      out.push(p);
+    }
+    if (out.join(" ").length > 600) break;
+  }
+  return out.join(" ").slice(0, 700);
 }

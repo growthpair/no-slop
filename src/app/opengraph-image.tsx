@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "DeleteSlop — delete the AI tell in your writing and design";
+export const alt = "DeleteSlop: delete the AI tell in your writing and design";
 
 /** Social share card. Same brand: near-black paper, one lime mark, struck slop. */
 export default function OG() {

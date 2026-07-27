@@ -44,7 +44,7 @@ export function DesignChecker() {
       headline = "No tells checked. Either it's clean, or look harder.";
     } else if (n <= 3) {
       label = "Mostly clean";
-      headline = `${n} tell${n === 1 ? "" : "s"} — a quick pass fixes it.`;
+      headline = `${n} tell${n === 1 ? "" : "s"}. A quick pass fixes it.`;
     } else if (n <= 6) {
       label = "Reads like a template";
       headline = `${n} tells. It's starting to look generated.`;
@@ -172,8 +172,8 @@ export function DesignChecker() {
             Stop shipping the tells. Get the art director.
           </p>
           <p className="mt-1 mb-3.5 text-[12.5px] leading-relaxed text-muted">
-            Install No Slop Design and Claude catches all of this as you build —
-            landing pages, emails, ads, decks. Free with a Google account.
+            Install No Slop Design and Claude catches all of this as you build.
+            Landing pages, emails, ads, decks. Free with a Google account.
           </p>
           <a
             href="/login?callbackUrl=%2Fskills%2Fno-slop-design&reason=checker"

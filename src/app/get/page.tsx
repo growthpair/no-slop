@@ -15,7 +15,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Install your skills · DeleteSlop",
-  description: "Copy both DeleteSlop skills into Claude — you're signed in.",
+  description: "Copy both DeleteSlop skills into Claude. You're signed in.",
   robots: { index: false },
 };
 
@@ -90,7 +90,7 @@ export default async function GetPage() {
                   <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </div>
-              <SkillContent content={skill.install} downloadName={skill.downloadName} />
+              <SkillContent content={skill.install} />
             </section>
           ))}
         </div>
