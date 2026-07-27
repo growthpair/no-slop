@@ -1,10 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowRight, Sparkles, RotateCcw, Download, Copy, Check } from "lucide-react";
+import { ArrowRight, Sparkles, RotateCcw } from "lucide-react";
 import { detectSlop, SLOP_SAMPLE, type SlopHit } from "@/lib/slop-detector";
-
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://deleteslop.com";
 
 /** Render the pasted text with each detected tell wrapped in a struck mark. */
 function Highlighted({ text, hits }: { text: string; hits: SlopHit[] }) {
@@ -30,7 +28,6 @@ function Highlighted({ text, hits }: { text: string; hits: SlopHit[] }) {
 
 export function SlopChecker() {
   const [text, setText] = useState("");
-  const [copied, setCopied] = useState(false);
   const result = useMemo(() => detectSlop(text), [text]);
   const hasText = text.trim().length > 0;
 
@@ -44,27 +41,6 @@ export function SlopChecker() {
       return true;
     });
   }, [result.hits]);
-
-  // Shareable score card + caption, built from the current result.
-  const topTells = uniqueTells.slice(0, 4).map((h) => h.text);
-  const cardUrl =
-    `${SITE}/api/score-card?score=${result.score}&tells=${result.hits.length}` +
-    `&words=${result.wordCount}&label=${encodeURIComponent(result.label)}` +
-    `&tips=${encodeURIComponent(topTells.join(","))}`;
-  const caption =
-    `I ran my copy through a slop detector — ${result.score}/10 on AI tells.\n\n` +
-    (topTells.length ? `It flagged: ${topTells.join(", ")}.\n\n` : "") +
-    `Grade yours free at deleteslop.com`;
-
-  const copyCaption = async () => {
-    try {
-      await navigator.clipboard.writeText(caption);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* clipboard blocked */
-    }
-  };
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
@@ -183,36 +159,6 @@ export function SlopChecker() {
               </div>
             )}
 
-            {/* Share — a branded score card for LinkedIn */}
-            {result.hits.length > 0 && (
-              <div className="mb-4">
-                <p className="mb-2.5 font-mono text-[10px] uppercase tracking-widest text-muted-2">
-                  Share your score
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <a
-                    href={cardUrl}
-                    download="deleteslop-score.png"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-md bg-accent px-3.5 py-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-accent-contrast transition-colors hover:bg-accent-hover"
-                  >
-                    <Download size={13} /> Score card
-                  </a>
-                  <button
-                    onClick={copyCaption}
-                    className="inline-flex items-center gap-1.5 rounded-md border border-border px-3.5 py-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-muted transition-colors hover:border-border-strong hover:text-foreground"
-                  >
-                    {copied ? <Check size={13} /> : <Copy size={13} />}
-                    {copied ? "Copied" : "Caption"}
-                  </button>
-                </div>
-                <p className="mt-2 text-[11px] leading-relaxed text-muted-2">
-                  Post the card on LinkedIn with the caption. Nobody can tell it&apos;s yours
-                  unless you say so.
-                </p>
-              </div>
-            )}
           </>
         )}
 

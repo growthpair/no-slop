@@ -33,9 +33,6 @@ export function Footer() {
           </div>
           <div className="flex flex-col gap-2.5">
             <p className="eyebrow text-muted-2">More</p>
-            <Link href="/slop-index" className="text-[13px] text-muted transition-colors hover:text-foreground">
-              Slop Index
-            </Link>
             <Link href="/changelog" className="text-[13px] text-muted transition-colors hover:text-foreground">
               Changelog
             </Link>
