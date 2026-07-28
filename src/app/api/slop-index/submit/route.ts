@@ -11,8 +11,9 @@ import { prisma } from "@/lib/prisma";
  * `copy`, so what's shown is exactly what was scored (transparent + defensible).
  */
 export async function POST(req: Request) {
-  const origin = new URL(req.url).origin;
-  const back = (path: string) => NextResponse.redirect(`${origin}${path}`, { status: 303 });
+  // Relative Location so the browser resolves against the public URL, not the
+  // internal container origin (Railway proxies external requests to localhost).
+  const back = (path: string) => new NextResponse(null, { status: 303, headers: { Location: path } });
 
   const session = await getServerSession(authOptions);
   const userId = (session?.user as { id?: string } | undefined)?.id;

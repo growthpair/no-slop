@@ -6,7 +6,6 @@ import { prisma } from "@/lib/prisma";
 
 /** Admin-only takedown for a Slop Index submission. */
 export async function POST(req: Request) {
-  const origin = new URL(req.url).origin;
   const session = await getServerSession(authOptions);
   if (!isAdmin(session)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -22,5 +21,7 @@ export async function POST(req: Request) {
     }
   }
 
-  return NextResponse.redirect(`${origin}/admin`, { status: 303 });
+  // Relative Location so the browser resolves against the public URL (Railway
+  // proxies external requests to an internal localhost origin).
+  return new NextResponse(null, { status: 303, headers: { Location: "/admin" } });
 }
