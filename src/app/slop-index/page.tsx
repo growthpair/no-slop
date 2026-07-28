@@ -257,36 +257,15 @@ export default async function SlopIndexPage({
           <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
             <h2 className="display text-[clamp(1.6rem,4vw,2.4rem)] text-foreground">Add a brand to the board</h2>
             <p className="mt-3 text-[14px] leading-relaxed text-muted">
-              Drop the brand&apos;s URL and we&apos;ll read its copy, score it, and add
-              it to the board. Some sites block bots or hide copy in JavaScript, so you
-              can paste the copy yourself as a fallback.
+              Drop a URL. We pull the brand name and its copy, score it, and add it to
+              the board. Some sites block bots or render in JavaScript, so you can paste
+              the copy yourself as a fallback.
             </p>
             {session ? (
             <form action="/api/slop-index/submit" method="post" className="mt-6 flex flex-col gap-4">
               {/* Honeypot */}
               <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="flex flex-col gap-1.5">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-2">Brand *</span>
-                  <input
-                    name="name"
-                    required
-                    maxLength={80}
-                    placeholder="e.g. Notion"
-                    className="rounded-lg border border-border-strong bg-surface px-3.5 py-2.5 text-[14px] text-foreground placeholder:text-muted-2 focus:border-accent focus:outline-none"
-                  />
-                </label>
-                <label className="flex flex-col gap-1.5">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-2">Category</span>
-                  <input
-                    name="note"
-                    maxLength={40}
-                    placeholder="e.g. B2B SaaS"
-                    className="rounded-lg border border-border-strong bg-surface px-3.5 py-2.5 text-[14px] text-foreground placeholder:text-muted-2 focus:border-accent focus:outline-none"
-                  />
-                </label>
-              </div>
               <label className="flex flex-col gap-1.5">
                 <span className="font-mono text-[10px] uppercase tracking-widest text-muted-2">Page URL *</span>
                 <input
@@ -297,7 +276,9 @@ export default async function SlopIndexPage({
                   placeholder="https://brand.com"
                   className="rounded-lg border border-border-strong bg-surface px-3.5 py-2.5 text-[14px] text-foreground placeholder:text-muted-2 focus:border-accent focus:outline-none"
                 />
-                <span className="text-[11px] text-muted-2">We read the copy from this page.</span>
+                <span className="text-[11px] text-muted-2">
+                  That&apos;s it. We pull the brand name and its copy from the page.
+                </span>
               </label>
               <label className="flex flex-col gap-1.5">
                 <span className="font-mono text-[10px] uppercase tracking-widest text-muted-2">

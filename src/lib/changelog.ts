@@ -21,6 +21,15 @@ export interface SkillRelease {
 export const SKILL_CHANGELOG: Record<string, SkillRelease[]> = {
   "no-slop": [
     {
+      version: "1.1",
+      date: "2026-07-27",
+      changes: [
+        "Added 22 banned words the model leans on: boast, testament, underscore, spearhead, myriad, unparalleled, reimagine, revolutionize, effortless, world-class, best-in-class, state-of-the-art, and more.",
+        "Added AI transition tells (moreover, furthermore, additionally, notably) and new filler phrases (a testament to, at the forefront of, look no further, say goodbye to, in today's digital age).",
+        "Two new patterns: empty superlatives and AI connective tissue. The checklist is now 23 patterns.",
+      ],
+    },
+    {
       version: "1.0",
       date: "2026-07-24",
       changes: [
@@ -29,6 +38,13 @@ export const SKILL_CHANGELOG: Record<string, SkillRelease[]> = {
     },
   ],
   "no-slop-design": [
+    {
+      version: "1.1",
+      date: "2026-07-27",
+      changes: [
+        "Two new design tells: AI stock imagery (uncanny faces, warped hands, generic 3D blobs) and over-rounded everything (giant radius on every element). Now 18 tells.",
+      ],
+    },
     {
       version: "1.0",
       date: "2026-07-24",

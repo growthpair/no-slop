@@ -62,6 +62,30 @@ const WORDS: [string, string][] = [
   ["disruptive", "cut it"],
   ["thought leader", "cut it"],
   ["innovative", "cut it — name the thing"],
+  // v1.1 additions
+  ["boast", "cut it — say the number"],
+  ["boasts", "cut it — say the number"],
+  ["testament", "cut it"],
+  ["underscore", "cut it — state the point"],
+  ["underscores", "cut it — state the point"],
+  ["bolster", "strengthen / back"],
+  ["spearhead", "lead"],
+  ["myriad", "many"],
+  ["plethora", "plenty"],
+  ["nestled", "cut it"],
+  ["unparalleled", "cut it"],
+  ["reimagine", "cut it — say what changed"],
+  ["reimagined", "cut it — say what changed"],
+  ["redefine", "cut it"],
+  ["revolutionize", "cut it"],
+  ["revolutionary", "cut it"],
+  ["effortless", "cut it"],
+  ["effortlessly", "cut it"],
+  ["world-class", "cut it — show the proof"],
+  ["best-in-class", "cut it — show the proof"],
+  ["top-notch", "cut it"],
+  ["state-of-the-art", "cut it"],
+  ["turnkey", "cut it"],
 ];
 
 const HEDGES: [string, string][] = [
@@ -77,6 +101,11 @@ const HEDGES: [string, string][] = [
   ["importantly", "cut it"],
   ["crucially", "cut it"],
   ["basically", "cut it"],
+  // v1.1 additions — AI connective tissue
+  ["moreover", "cut it"],
+  ["furthermore", "cut it"],
+  ["additionally", "cut it"],
+  ["notably", "cut it"],
 ];
 
 const PHRASES: [string, string][] = [
@@ -97,6 +126,17 @@ const PHRASES: [string, string][] = [
   ["needless to say", "cut it — then don't say it"],
   ["a game changer", "cut it"],
   ["last but not least", "“finally”"],
+  // v1.1 additions
+  ["a testament to", "cut it"],
+  ["at the forefront of", "cut it"],
+  ["look no further", "cut it"],
+  ["rest assured", "cut it"],
+  ["it's no secret that", "cut it, state the point"],
+  ["say goodbye to", "cut it"],
+  ["more than just", "just say what it is"],
+  ["in today's digital age", "cut the throat-clearing"],
+  ["ever-changing landscape", "cut it"],
+  ["the bottom line", "cut it"],
 ];
 
 // Build one case-insensitive regex per entry, apostrophe-agnostic, word-bounded.

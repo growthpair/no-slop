@@ -4,8 +4,9 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 /**
- * Submission to the Slop Index. Signed-in users only. You give a URL and we
- * scrape the page's marketing copy; pasting copy is an optional fallback for
+ * Submission to the Slop Index. Signed-in users only. You give a URL; we scrape
+ * the page's marketing copy AND its brand name (og:site_name / title / domain),
+ * so the whole entry is auto-populated. Pasting copy is an optional fallback for
  * sites that block bots or render via JS. The score is computed at render from
  * `copy`, so what's shown is exactly what was scored (transparent + defensible).
  */
@@ -22,25 +23,26 @@ export async function POST(req: Request) {
   // Honeypot: real users leave this empty; bots fill it.
   if ((form.get("website") as string)?.trim()) return back("/slop-index?added=1");
 
-  const name = clean(form.get("name"), 80);
-  const note = clean(form.get("note"), 40);
   const pasted = clean(form.get("copy"), 1200);
   const sourceUrlRaw = clean(form.get("sourceUrl"), 300);
   const sourceUrl = /^https?:\/\//i.test(sourceUrlRaw) ? sourceUrlRaw : "";
+  if (!sourceUrl) return back("/slop-index?error=1");
 
-  if (name.length < 1) return back("/slop-index?error=1");
-
-  // Prefer pasted copy; otherwise scrape the URL.
+  // Copy: pasted wins; otherwise scrape. Name: scraped site name, else domain.
   let copy = pasted;
+  let name = "";
   if (copy.trim().length < 20) {
-    if (!sourceUrl) return back("/slop-index?error=1");
-    copy = await scrapeCopy(sourceUrl);
+    const page = await scrapePage(sourceUrl);
+    copy = page.copy;
+    name = page.name;
     if (copy.trim().length < 20) return back("/slop-index?error=scrape");
   }
+  if (!name) name = domainName(sourceUrl);
+  if (!name) return back("/slop-index?error=1");
 
   try {
     await prisma.slopEntry.create({
-      data: { name, note: note || null, copy, sourceUrl: sourceUrl || null, userId: userId || null },
+      data: { name, note: null, copy, sourceUrl, userId: userId || null },
     });
   } catch {
     return back("/slop-index?error=2");
@@ -51,6 +53,16 @@ export async function POST(req: Request) {
 
 function clean(v: FormDataEntryValue | null, max: number): string {
   return (typeof v === "string" ? v : "").trim().slice(0, max);
+}
+
+/** Brand name from the domain: "https://www.notion.so/x" -> "Notion". */
+function domainName(u: string): string {
+  try {
+    const label = new URL(u).hostname.replace(/^www\./, "").split(".")[0];
+    return label ? label.charAt(0).toUpperCase() + label.slice(1) : "";
+  } catch {
+    return "";
+  }
 }
 
 /** Block loopback / private / cloud-metadata hosts (basic SSRF guard). */
@@ -72,18 +84,21 @@ function isBlockedHost(host: string): boolean {
 }
 
 /**
- * Fetch a page and pull its marketing-ish copy: title, meta description,
- * headings, and the first substantial paragraphs. Best-effort; returns "" on
- * any failure (bot block, JS-only page, timeout) so the caller can fall back.
+ * Fetch a page and pull its brand name + marketing-ish copy (title, meta/og/
+ * twitter tags, hero-zone headings and paragraphs). Best-effort; returns empty
+ * copy on any failure (bot block, JS-only page, timeout) so the caller can fall
+ * back to pasted copy.
  */
-async function scrapeCopy(url: string): Promise<string> {
+async function scrapePage(url: string): Promise<{ copy: string; name: string }> {
   let parsed: URL;
   try {
     parsed = new URL(url);
   } catch {
-    return "";
+    return { copy: "", name: "" };
   }
-  if (!/^https?:$/.test(parsed.protocol) || isBlockedHost(parsed.hostname)) return "";
+  if (!/^https?:$/.test(parsed.protocol) || isBlockedHost(parsed.hostname)) {
+    return { copy: "", name: "" };
+  }
 
   let html: string;
   try {
@@ -93,16 +108,17 @@ async function scrapeCopy(url: string): Promise<string> {
       redirect: "follow",
       signal: controller.signal,
       headers: {
-        "user-agent":
-          "Mozilla/5.0 (compatible; DeleteSlopBot/1.0; +https://deleteslop.com)",
+        "user-agent": "Mozilla/5.0 (compatible; DeleteSlopBot/1.0; +https://deleteslop.com)",
         accept: "text/html",
       },
     });
     clearTimeout(timer);
-    if (!res.ok || !/text\/html/i.test(res.headers.get("content-type") || "")) return "";
+    if (!res.ok || !/text\/html/i.test(res.headers.get("content-type") || "")) {
+      return { copy: "", name: "" };
+    }
     html = (await res.text()).slice(0, 500_000);
   } catch {
-    return "";
+    return { copy: "", name: "" };
   }
 
   const strip = (s: string) =>
@@ -117,19 +133,6 @@ async function scrapeCopy(url: string): Promise<string> {
       .replace(/\s+/g, " ")
       .trim();
 
-  const noHead = html
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<noscript[\s\S]*?<\/noscript>/gi, " ");
-
-  // Hero zone: the top of the body, where the marketing copy lives. Slicing
-  // here keeps footer/nav-heavy sections out of the scored text.
-  const bodyIdx = noHead.search(/<body[^>]*>/i);
-  const start = bodyIdx >= 0 ? bodyIdx : 0;
-  const zone = noHead.slice(start, start + 18000);
-
-  // Meta tags (title, description, og:*, twitter:*) are server-rendered even on
-  // JS-heavy SPAs, so they carry the hero copy the body doesn't.
   const meta = (key: string) => {
     const a = html.match(
       new RegExp(`<meta[^>]+(?:name|property)=["']${key}["'][^>]+content=["']([^"']*)["']`, "i")
@@ -141,9 +144,21 @@ async function scrapeCopy(url: string): Promise<string> {
     return m ? strip(m[1]) : "";
   };
 
+  const noHead = html
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<noscript[\s\S]*?<\/noscript>/gi, " ");
+  const bodyIdx = noHead.search(/<body[^>]*>/i);
+  const start = bodyIdx >= 0 ? bodyIdx : 0;
+  const zone = noHead.slice(start, start + 18000);
+
+  const titleRaw = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  const title = titleRaw ? strip(titleRaw[1]) : "";
+  // Brand name: prefer og:site_name; else the first segment of <title>; else "".
+  const name = meta("og:site_name") || title.split(/\s*[|\-–—·:]\s*/)[0].slice(0, 60);
+
   const parts: string[] = [];
-  const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-  if (title) parts.push(strip(title[1]));
+  if (title) parts.push(title);
   for (const key of ["description", "og:title", "og:description", "twitter:description"]) {
     const v = meta(key);
     if (v) parts.push(v);
@@ -156,7 +171,6 @@ async function scrapeCopy(url: string): Promise<string> {
     .slice(0, 4);
   parts.push(...paras);
 
-  // Dedupe and cap to a hero-sized excerpt.
   const seen = new Set<string>();
   const out: string[] = [];
   for (const p of parts) {
@@ -167,5 +181,5 @@ async function scrapeCopy(url: string): Promise<string> {
     }
     if (out.join(" ").length > 600) break;
   }
-  return out.join(" ").slice(0, 700);
+  return { copy: out.join(" ").slice(0, 700), name };
 }

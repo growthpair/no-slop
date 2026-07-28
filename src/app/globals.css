@@ -122,12 +122,18 @@ body {
 }
 
 /* Fine hairline grid, used sparingly behind the hero. */
-.grid-lines {
-  background-image: linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 72px 72px;
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+/* Ruled-manuscript paper: horizontal rules like the page you edit on, not a
+   generic grid. Ties the hero to the marked-up-manuscript motif. */
+.ruled-paper {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 39px,
+    var(--border) 39px,
+    var(--border) 40px
+  );
+  -webkit-mask-image: radial-gradient(ellipse 95% 75% at 50% 0%, #000 50%, transparent 100%);
+  mask-image: radial-gradient(ellipse 95% 75% at 50% 0%, #000 50%, transparent 100%);
 }
 
 ::selection {

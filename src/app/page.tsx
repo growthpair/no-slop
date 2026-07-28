@@ -20,14 +20,14 @@ export default function Home() {
       <main>
         {/* ---------------------------------------------------------------- Hero */}
         <section className="relative overflow-hidden px-5 pb-16 pt-28 sm:px-8 sm:pt-36">
-          <div className="grid-lines pointer-events-none absolute inset-0 -z-10 opacity-60" />
+          <div className="ruled-paper pointer-events-none absolute inset-0 -z-10 opacity-70" />
           <div className="mx-auto max-w-6xl">
             <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
               {/* Copy */}
               <div>
                 <div className="mb-7 -rotate-1">
                   <HandUnderline className="font-hand text-[23px] leading-tight text-foreground/85">
-                    free Claude skills, for marketers
+                    Free Claude skills, for marketers
                   </HandUnderline>
                 </div>
 
