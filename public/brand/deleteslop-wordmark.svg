@@ -1,7 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240" font-family="'SFMono-Regular','Menlo','Consolas',monospace">
-  <rect width="900" height="240" fill="#F6F5EF"/>
-  <rect x="70" y="92" width="330" height="70" fill="#C6F24E"/>
-  <text x="86" y="146" font-size="66" font-weight="700" letter-spacing="-1" fill="#14140F">Delete</text>
-  <text x="430" y="146" font-size="66" font-weight="700" letter-spacing="-1" fill="#8C8C82">Slop</text>
-  <line x1="430" y1="128" x2="600" y2="128" stroke="#D6402A" stroke-width="5" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="150" viewBox="0 0 680 150" font-family="Menlo,Consolas,monospace">
+<rect x="8" y="18" width="392" height="108" fill="#C6F24E"/>
+<text x="22" y="99" font-size="96" font-weight="700" letter-spacing="-3" fill="#14140F">Delete</text>
+<text x="416" y="99" font-size="96" font-weight="700" letter-spacing="-3" fill="#8C8C82">Slop</text>
+<path d="M414,72 C474,66 534,77 598,68 C624,64 648,72 666,69" fill="none" stroke="#D6402A" stroke-width="6" stroke-linecap="round"/>
 </svg>

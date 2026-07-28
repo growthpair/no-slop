@@ -14,7 +14,20 @@ export function Logo({ className = "" }: { className?: string }) {
       <span className="bg-accent px-1 text-accent-contrast">Delete</span>
       <span className="relative text-muted">
         Slop
-        <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-slop" />
+        <svg
+          aria-hidden
+          viewBox="0 0 120 8"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute left-[-2px] top-1/2 h-[0.5em] w-[calc(100%+4px)] -translate-y-1/2 overflow-visible"
+        >
+          <path
+            d="M2,5 C34,3.6 66,5.8 98,4.2 C110,3.7 115,4.6 118,4.3"
+            fill="none"
+            stroke="var(--slop)"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+          />
+        </svg>
       </span>
     </Link>
   );

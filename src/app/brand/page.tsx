@@ -90,6 +90,7 @@ export default function BrandPage() {
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               <Download_ href="/brand/deleteslop-wordmark.svg" label="SVG" />
+              <Download_ href="/brand/deleteslop-wordmark-transparent.png" label="PNG transparent" />
               <Download_ href="/brand/deleteslop-wordmark.png" label="PNG light" />
               <Download_ href="/brand/deleteslop-wordmark-dark.png" label="PNG dark" />
             </div>
