@@ -24,9 +24,9 @@ export const SKILL_CHANGELOG: Record<string, SkillRelease[]> = {
       version: "1.1",
       date: "2026-07-27",
       changes: [
-        "Added 22 banned words the model leans on: boast, testament, underscore, spearhead, myriad, unparalleled, reimagine, revolutionize, effortless, world-class, best-in-class, state-of-the-art, and more.",
-        "Added AI transition tells (moreover, furthermore, additionally, notably) and new filler phrases (a testament to, at the forefront of, look no further, say goodbye to, in today's digital age).",
-        "Two new patterns: empty superlatives and AI connective tissue. The checklist is now 23 patterns.",
+        "Added AI-overused words documented in the excess-vocabulary research: boast, testament, underscore, myriad, plethora, nestled, reimagine.",
+        "Added AI connective tissue (moreover, furthermore, additionally, notably) and filler phrases (a testament to, in today's digital age, it's no secret that).",
+        "One new pattern: AI connective tissue. The checklist is now 22 patterns.",
       ],
     },
     {
