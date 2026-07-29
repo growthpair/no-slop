@@ -21,6 +21,15 @@ export interface SkillRelease {
 export const SKILL_CHANGELOG: Record<string, SkillRelease[]> = {
   "no-slop": [
     {
+      version: "1.2",
+      date: "2026-07-29",
+      changes: [
+        "Caught the newest tell: unsolicited reassurance ('You're not alone,' 'You're not imagining it,' 'You're not broken'), the therapy-speak the model injects.",
+        "Added the 2026 vogue word 'quiet' (as in 'a quiet confidence') as a pattern, plus documented AI words: showcase, unveil, nuanced, garner, and the phrase 'aligns with.'",
+        "Two new patterns (unsolicited reassurance, vogue intensifiers). The checklist is now 24 patterns.",
+      ],
+    },
+    {
       version: "1.1",
       date: "2026-07-27",
       changes: [

@@ -73,6 +73,14 @@ const WORDS: [string, string][] = [
   ["nestled", "cut it"],
   ["reimagine", "cut it — say what changed"],
   ["reimagined", "cut it — say what changed"],
+  // v1.2 additions — newer documented AI tells
+  ["showcase", "cut it — show the thing"],
+  ["showcasing", "cut it — show the thing"],
+  ["unveil", "cut it — say what launched"],
+  ["unveiling", "cut it — say what launched"],
+  ["nuanced", "cut it"],
+  ["garner", "get / earn"],
+  ["garnered", "got / earned"],
 ];
 
 const HEDGES: [string, string][] = [
@@ -118,6 +126,11 @@ const PHRASES: [string, string][] = [
   ["it's no secret that", "cut it, state the point"],
   ["in today's digital age", "cut the throat-clearing"],
   ["ever-changing landscape", "cut it"],
+  // v1.2 additions — unsolicited reassurance + newer phrases
+  ["you're not alone", "cut it — don't console, make the point"],
+  ["you're not imagining it", "cut it — don't console, make the point"],
+  ["you're not broken", "cut it — don't console, make the point"],
+  ["aligns with", "matches / fits"],
 ];
 
 // Build one case-insensitive regex per entry, apostrophe-agnostic, word-bounded.
