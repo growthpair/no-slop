@@ -48,8 +48,8 @@ STEP 1: Add this section to my CLAUDE.md memory file (use ~/.claude/CLAUDE.md if
 
 Every piece of writing (emails, docs, posts, Slack, notes, drafts) follows this. Catch yourself doing any of these, stop and rewrite. For a full scrub of a specific draft, use the \`no-slop\` skill.
 
-- Never these words: delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, paradigm shift, game changer, tapestry, realm, beacon, pivotal, multifaceted, meticulous, intricate, paramount, transformative, elevate, embark, supercharge, harness, ever-evolving, holistic, synergize, disruptive, thought leader, boast, testament, underscore, myriad, plethora, nestled, reimagine, showcase, unveil, nuanced, garner.
-- Never these hedges/filler: really, just, literally, genuinely, honestly, simply, actually, truly, fundamentally, importantly, crucially, moreover, furthermore, additionally, notably; "it's worth noting," "at the end of the day," "when it comes to," "at its core," "in today's world," "in today's digital age," "the reality is," "in order to," "let's dive in," "a testament to," "it's no secret that," "you're not alone," "you're not imagining it," "aligns with."
+- Never these words: delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, paradigm shift, game changer, tapestry, realm, beacon, pivotal, multifaceted, meticulous, intricate, paramount, transformative, elevate, embark, supercharge, harness, ever-evolving, holistic, synergize, disruptive, thought leader, boast, testament, underscore, myriad, plethora, nestled, reimagine, showcase, unveil, nuanced, garner, comprehensive, crucial, enhance, vibrant, captivating, interplay, kaleidoscope, symphony.
+- Never these hedges/filler: really, just, literally, genuinely, honestly, simply, actually, truly, fundamentally, importantly, crucially, moreover, furthermore, additionally, notably; "it's worth noting," "at the end of the day," "when it comes to," "at its core," "in today's world," "in today's digital age," "the reality is," "in order to," "let's dive in," "a testament to," "it's no secret that," "you're not alone," "you're not imagining it," "aligns with," "sheds light on," "navigating the complexities of," "gone are the days," "treasure trove," and any leftover chatbot residue ("Certainly!," "I hope this helps," "As an AI language model").
 - Never these structures: binary contrast ("not X, it's Y" -> say Y); throat-clearing openers ("here's the thing" -> cut); faux-insight ("what nobody tells you" -> cut setup); colon reveals ("the best part: ..." -> plain sentence); importance puffery ("marks a pivotal moment" -> state the fact); weasel attribution ("experts agree" -> name source or cut); rule-of-three by default; both-sides hedging ("powerful, but not without drawbacks" -> take a side); fake-profound kicker or "in conclusion" recap at the end; formatting slop (emoji headings, mid-sentence bold, needless bullets); em dashes as a rhythm crutch (short copy: none; longer: 1-2 max).
 - Always: write like you talk. Short sentences, real words, contractions, first person. Lead with the point. Be specific (real numbers, named tools), never vague. One idea per sentence, active voice, take a position. Unclear fact -> ask; never invent claims or stats.
 
@@ -70,13 +70,13 @@ Edit (default): the user pastes a draft to fix. Rewrite it with the rules below 
 Detect: the user asks "is this slop?" Name each pattern that appears, quote the line, give the fix in a few words. Don't rewrite or score. Offer to edit after.
 
 ## Words to cut
-Banned: delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, paradigm shift, game changer, tapestry, realm, beacon, pivotal, multifaceted, meticulous, intricate, paramount, transformative, elevate, embark, supercharge, harness, ever-evolving, holistic, synergize, disruptive, thought leader, innovative, boast, testament, underscore, myriad, plethora, nestled, reimagine, showcase, unveil, nuanced, garner.
+Banned: delve, foster, leverage, utilize, facilitate, empower, streamline, robust, seamless, cutting-edge, paradigm shift, game changer, tapestry, realm, beacon, pivotal, multifaceted, meticulous, intricate, paramount, transformative, elevate, embark, supercharge, harness, ever-evolving, holistic, synergize, disruptive, thought leader, innovative, boast, testament, underscore, myriad, plethora, nestled, reimagine, showcase, unveil, nuanced, garner, comprehensive, crucial, enhance, vibrant, captivating, interplay, kaleidoscope, symphony.
 
 Hedges/filler adverbs: really, just, literally, genuinely, honestly, simply, actually, truly, fundamentally, importantly, crucially, inherently, inevitably, moreover, furthermore, additionally, notably.
 
-Filler phrases: it's worth noting, it's important to note, at the end of the day, when it comes to, at its core, in today's world, in today's digital age, in the age of, the reality is, the truth is, in terms of, in order to, going forward, let's dive in, a testament to, it's no secret that, you're not alone, you're not imagining it, you're not broken, aligns with.
+Filler phrases: it's worth noting, it's important to note, at the end of the day, when it comes to, at its core, in today's world, in today's digital age, in the age of, the reality is, the truth is, in terms of, in order to, going forward, let's dive in, a testament to, it's no secret that, you're not alone, you're not imagining it, you're not broken, aligns with, sheds light on, navigating the complexities of, gone are the days, treasure trove.
 
-## Patterns to cut (the 24)
+## Patterns to cut (the 28)
 1. Binary contrasts ("not X, it's Y") -> state Y directly.
 2. Throat-clearing openers ("here's the thing") -> cut, state the point.
 3. Faux-insight setups ("what nobody tells you") -> cut the setup.
@@ -101,6 +101,10 @@ Filler phrases: it's worth noting, it's important to note, at the end of the day
 22. AI connective tissue ("moreover," "furthermore," "additionally," "notably") -> lead with the point; if the link is real, it's already clear.
 23. Unsolicited reassurance ("You're not alone," "You're not imagining it," "You're not broken") -> cut it; state the point, don't console the reader.
 24. Vogue intensifiers ("quiet," as in "a quiet confidence") -> name the specific thing; don't borrow weight from a mood word.
+25. Chatbot residue (leftover scaffolding: "Certainly!", "I hope this helps," "As an AI language model," "Let me know if you need anything else") -> delete it entirely; it's copy-paste evidence.
+26. Title Case In Every Heading -> sentence case; capitalize the first word and proper nouns only.
+27. Bold lead-in list items (**Term:** explanation running down every bullet) -> write it as prose, or use a real list without the bolded stubs.
+28. "Not only X, but also Y" additive emphasis -> just state both plainly, or cut one.
 
 ## Editing fundamentals
 Lead with the point (conclusion first). Keep the user's meaning; never invent claims or stats; unclear -> ask. Active voice. Every sentence earns its place. One idea per sentence, one topic per paragraph. Be concrete: names, numbers, dates, mechanisms beat abstractions. Protect specific facts (never smooth a real number into vague importance). Make verbs do the work ("decided" not "made a decision"). Preserve strong opinions; sharpen, don't sand down. Keep structure unless it's hurting the piece; if you reorganize, say why.
@@ -170,6 +174,11 @@ Direct: the user is building. Apply the rules below as you generate, and call ou
 16. Deck slop: title + five bullets + clip art, fonts changing per slide. -> One idea per slide, consistent system, real visuals.
 17. AI stock imagery: over-smooth "diverse team" photos, uncanny faces, warped hands, generic 3D blobs. -> Real product shots, real photos, or nothing.
 18. Over-rounded everything: giant radius on every element, pill buttons, blob shapes. -> Match radius to the brand, vary it, let some edges stay sharp.
+19. Default fonts: Inter (or the system sans) everywhere, no type choices made. -> Pick a distinctive display face plus a real body font; use weight for hierarchy.
+20. Uniform component metrics: identical border-radius, padding, and card heights across the whole page (the AI-template signature). -> Vary sizing and spacing to build hierarchy; not every block is the same box.
+21. Vague aspirational hero copy: "Build the future of work," "Your all-in-one platform." -> A specific claim with a real noun or number ("Financial infrastructure for the internet").
+22. Lifeless motion: dead hover states, buttons that snap instead of ease, the same fade-in on every element. -> Purposeful micro-interactions on the primary action; cut decorative animation.
+23. Garbled text inside AI images: gibberish on signs, labels, and UI in generated art. -> Real screenshots and real assets; never ship AI-rendered text.
 
 ## Design fundamentals
 Lead the eye: one focal point per view, then a clear second and third (Z or F pattern). Contrast is the tool for both legibility and emphasis. One accent color, spent only on the primary action. Type scale with intent, two families max, weight for hierarchy. Spacing is a system, not a guess. Whitespace is not empty, it's doing work. Brand consistency across every surface (color, type, voice). Prefer real imagery and real numbers over illustration. Every screen has one job; design serves that job, not decoration. Accessibility is table stakes: contrast, tap targets, alt text.
@@ -205,7 +214,7 @@ export const SKILLS: Skill[] = [
     whatYouGet: [
       "A CLAUDE.md rule block that keeps every landing page, email, ad, and deck off the AI-slop defaults.",
       "A no-slop-design skill with two modes: AUDIT critiques a design or screenshot, DIRECT applies the rules as you build.",
-      "The full checklist of 18 AI design tells to kill, each with its fix, written for marketing surfaces.",
+      "The full checklist of 23 AI design tells to kill, each with its fix, written for marketing surfaces.",
       "One paste sets it up in Claude Code and Claude Cowork. No config, no dependencies.",
     ],
     tells: [
@@ -237,7 +246,7 @@ export const SKILLS: Skill[] = [
     whatYouGet: [
       "A CLAUDE.md rule block that keeps every draft slop-free by default, with the full banned-words and banned-phrases list.",
       "A reusable no-slop skill with two modes: EDIT rewrites a draft clean, DETECT names the patterns without touching your voice.",
-      "The 24-pattern checklist behind it: binary contrasts, throat-clearing openers, colon reveals, unsolicited reassurance, em-dash abuse, and the rest.",
+      "The 28-pattern checklist behind it: binary contrasts, throat-clearing openers, colon reveals, chatbot residue, unsolicited reassurance, em-dash abuse, and the rest.",
       "One paste sets up both in Claude Code and Claude Cowork. No config, no dependencies.",
     ],
     preview: NO_SLOP_PREVIEW,

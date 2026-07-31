@@ -21,6 +21,16 @@ export interface SkillRelease {
 export const SKILL_CHANGELOG: Record<string, SkillRelease[]> = {
   "no-slop": [
     {
+      version: "1.3",
+      date: "2026-07-29",
+      changes: [
+        "Ran an exhaustive research pass against the peer-reviewed excess-vocabulary study, Wikipedia's signs-of-AI-writing, and the major overused-word lists.",
+        "Added chatbot residue (the clearest paste-from-AI evidence): 'as an AI language model,' 'I hope this helps,' 'let me know if you need anything else,' 'based on the information provided.'",
+        "Added peer-study words (comprehensive, crucial, enhance) and AI flourishes (vibrant, captivating, interplay, kaleidoscope, symphony, treasure trove), plus 'sheds light on,' 'navigating the complexities of,' 'gone are the days.'",
+        "New patterns: chatbot residue, Title Case headings, bold lead-in list items, 'not only X but also Y.' The checklist is now 28 patterns.",
+      ],
+    },
+    {
       version: "1.2",
       date: "2026-07-29",
       changes: [
@@ -47,6 +57,13 @@ export const SKILL_CHANGELOG: Record<string, SkillRelease[]> = {
     },
   ],
   "no-slop-design": [
+    {
+      version: "1.2",
+      date: "2026-07-29",
+      changes: [
+        "5 new tells from the current 'AI slop web design' guides: default fonts (Inter everywhere), uniform component metrics (same radius, padding, and card heights), vague aspirational hero copy, lifeless motion (dead hover states, snap buttons, one fade-in on everything), and garbled text inside AI images. Now 23 tells.",
+      ],
+    },
     {
       version: "1.1",
       date: "2026-07-27",

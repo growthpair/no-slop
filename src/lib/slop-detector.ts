@@ -81,6 +81,17 @@ const WORDS: [string, string][] = [
   ["nuanced", "cut it"],
   ["garner", "get / earn"],
   ["garnered", "got / earned"],
+  // v1.3 additions — research pass (excess-vocab study + AI-tell lists)
+  ["comprehensive", "cut it — say what it covers"],
+  ["crucial", "important, or cut"],
+  ["enhance", "improve / add"],
+  ["enhanced", "improved"],
+  ["enhancing", "improving"],
+  ["vibrant", "cut it"],
+  ["captivating", "cut it"],
+  ["interplay", "cut it"],
+  ["kaleidoscope", "cut it"],
+  ["symphony", "cut it"],
 ];
 
 const HEDGES: [string, string][] = [
@@ -131,6 +142,17 @@ const PHRASES: [string, string][] = [
   ["you're not imagining it", "cut it — don't console, make the point"],
   ["you're not broken", "cut it — don't console, make the point"],
   ["aligns with", "matches / fits"],
+  // v1.3 additions — AI phrases + leftover chatbot residue
+  ["treasure trove", "cut it"],
+  ["sheds light on", "shows / explains"],
+  ["shed light on", "show / explain"],
+  ["navigating the complexities of", "cut it"],
+  ["gone are the days", "cut it"],
+  ["as an ai language model", "delete it — chatbot residue"],
+  ["i hope this helps", "delete it — chatbot residue"],
+  ["let me know if you need anything else", "delete it — chatbot residue"],
+  ["based on the information provided", "delete it — chatbot residue"],
+  ["as of my last knowledge update", "delete it — chatbot residue"],
 ];
 
 // Build one case-insensitive regex per entry, apostrophe-agnostic, word-bounded.
